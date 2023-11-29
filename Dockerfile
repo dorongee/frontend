@@ -8,7 +8,7 @@ FROM base AS deps
 WORKDIR /usr/src/app
 
 # Install dependencies based on the preferred package manager
-COPY krampoline/package*.json ./
+COPY frontend/package*.json ./
 RUN npm ci
 
 
@@ -17,7 +17,7 @@ RUN npm ci
 FROM base AS builder
 WORKDIR /usr/src/app
 COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY krampoline/ .
+COPY frontend/ .
 RUN npm run build
 
 
