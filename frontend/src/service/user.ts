@@ -13,7 +13,6 @@ export async function registerUserProfile(
 }
 
 export async function getUserProfile(userId: number) {
-  console.log(process.env.NEXT_PUBLIC_SERVER_ADDRESS);
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user/${userId}`,
     {
@@ -24,7 +23,6 @@ export async function getUserProfile(userId: number) {
     .catch(console.error);
 }
 export async function getUserItems(userId: number) {
-  console.log(process.env.NEXT_PUBLIC_SERVER_ADDRESS);
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user/${userId}/items`,
     {

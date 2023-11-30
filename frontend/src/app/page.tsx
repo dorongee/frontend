@@ -1,20 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect } from 'react';
 import Button from '../components/Button';
 import Link from 'next/link';
 
 export default function Home() {
-  // useEffect(() => {
-  //   if ('geolocation' in navigator) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       console.log(position.coords.latitude, position.coords.longitude);
-  //     });
-  //   } else {
-  //     console.log('위치정보 사용 불가능');
-  //   }
-  // });
   return (
     <section className="relative flex flex-col h-full">
       <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[184px]" />

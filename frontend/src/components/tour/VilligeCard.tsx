@@ -1,15 +1,24 @@
 import Image from 'next/image';
 import StartButton from './StartButton';
-import { Village } from '../../types';
+import { UserProfile, Village } from '../../types';
 interface VillageCardProps {
   village: Village;
+  toggleStart: boolean;
+  userProfile: UserProfile;
 }
 
-function VilligeCard({ village }: VillageCardProps) {
-  const isClosed = village.distance <= Number(village.radius);
-
+function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
+  const isClosed = village.distance <= Number(village.radius) * 15;
+  const villageType = userProfile.completed_villages.includes(
+    village.village_id
+  )
+    ? 'complete'
+    : isClosed
+    ? 'start'
+    : 'check';
+  if (toggleStart && villageType !== 'start') return;
   return (
-    <div className="flex px-[12px] justify-between gap-4 items-center h-[70px] bg-dorong-white rounded-[10px] shadow-[0_2px_10px_0px_rgba(0,0,0,0.07)]">
+    <div className="flex px-[12px] justify-between items-center h-[70px] bg-dorong-white rounded-[10px] shadow-[0_2px_10px_0px_rgba(0,0,0,0.07)]">
       <div className="flex gap-[16px]">
         <Image
           src={`/images/village-${village.village_id}.png`}
@@ -32,7 +41,7 @@ function VilligeCard({ village }: VillageCardProps) {
           </p>
         </div>
       </div>
-      <StartButton type="check" />
+      <StartButton type={villageType} />
     </div>
   );
 }
