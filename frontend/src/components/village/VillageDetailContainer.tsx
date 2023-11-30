@@ -11,6 +11,11 @@ import { useRouter } from 'next/navigation';
 import { getVillage } from '../../service/village';
 import { PositionContext } from '../../app/layout';
 import { checkVillageDistance } from '../../app/util';
+import {
+  CHEERING_IMG_KEY,
+  DESPAIR_IMG_KEY,
+  NORMAL_IMG_KEY,
+} from '../../constants';
 
 type Props = {
   missions: Mission[];
@@ -177,7 +182,11 @@ export default function VillageDetailContainer({
                       {clickedType === 'O' ? '성공!' : '다시 시도해볼까요?'}
                     </p>
                     <Image
-                      src={exampleImg}
+                      src={
+                        clickedType === 'O'
+                          ? sessionStorage.getItem(CHEERING_IMG_KEY)
+                          : sessionStorage.getItem(DESPAIR_IMG_KEY)
+                      }
                       width={176}
                       height={176}
                       alt="example"
