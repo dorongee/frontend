@@ -24,6 +24,9 @@ module.exports = {
       animation: {
         progress: 'progress 10s linear',
       },
+      boxShadow: {
+        bottom: 'inset 0 -10px 5px 0 rgb(255, 255, 255, 0.5)',
+      },
     },
     colors: {
       dorong: {
