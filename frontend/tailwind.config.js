@@ -15,6 +15,15 @@ module.exports = {
       fontFamily: {
         pretendard: 'var(--font-pretendard)',
       },
+      keyframes: {
+        progress: {
+          from: { width: '0%' },
+          to: { width: '100%' },
+        },
+      },
+      animation: {
+        progress: 'progress 10s ease-in-out',
+      },
     },
     colors: {
       dorong: {
