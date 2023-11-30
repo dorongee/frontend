@@ -2,7 +2,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   isAvailable: boolean;
 }
 
-function Button({ isAvailable, children, className }: ButtonProps) {
+function Button({ isAvailable, children, className, onClick }: ButtonProps) {
   const bgTextColor = isAvailable
     ? 'bg-dorong-primary-main'
     : 'bg-dorong-gray-0';
