@@ -12,10 +12,14 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        pretendard: 'var(--font-pretendard)',
+      },
     },
     colors: {
       dorong: {
         black: 'var(--dorong-black)',
+        white: 'var(--dorong-white',
         error: 'var(--dorong-error)',
         positive: 'var(--dorong-positive)',
 

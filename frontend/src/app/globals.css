@@ -9,9 +9,10 @@
 
   --dorong-primary-dark: #662AB8;
   --dorong-primary: #9E36CF;
-  --dorong-primary-light: #CF9AE9
+  --dorong-primary-light: #CF9AE9;
 
   --dorong-black: #262627;
+  --dorong-white: #FDFDFF;
   --dorong-gray-0:#DEDEE4;
   --dorong-gray-1:#FAFAFA;
   --dorong-gray-2:#F7F7F9;
@@ -34,12 +35,4 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+body {}
