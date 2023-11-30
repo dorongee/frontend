@@ -20,7 +20,12 @@ import {
 } from '../../constants';
 import Button from '../../components/Button';
 import { Gender, SelectType } from '../../types';
-import { registerUserImage, registerUserProfile } from '../../service/user';
+import {
+  registerUserCheeringImage,
+  registerUserDespairImage,
+  registerUserNormalImage,
+  registerUserProfile,
+} from '../../service/user';
 import Loading from '../../components/create/loading';
 import Complete from '../../components/create/complete';
 import { notifyToast } from '../../service/notify';
@@ -58,12 +63,15 @@ export default function CreatePage() {
       .then((res) => res.user_data_id)
       .then((userId) => {
         sessionStorage.setItem(USER_ID_KEY, userId.toString());
-        return registerUserImage(userId, imageFile);
+        const normal = registerUserNormalImage(userId, imageFile);
+        const cheering = registerUserCheeringImage(userId, imageFile);
+        const despair = registerUserDespairImage(userId, imageFile);
+        return Promise.all([normal, cheering, despair]);
       })
       .then((res) => {
-        sessionStorage.setItem(CHEERING_IMG_KEY, res.cheering);
-        sessionStorage.setItem(DESPAIR_IMG_KEY, res.in_despair);
-        sessionStorage.setItem(NORMAL_IMG_KEY, res.normal);
+        sessionStorage.setItem(CHEERING_IMG_KEY, res[0].url);
+        sessionStorage.setItem(DESPAIR_IMG_KEY, res[1].url);
+        sessionStorage.setItem(NORMAL_IMG_KEY, res[2].url);
       })
       .then(() => setCurrentState('complete'));
   };

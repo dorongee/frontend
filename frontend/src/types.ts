@@ -35,10 +35,9 @@ export interface Position {
   latitude: number;
   longitude: number;
 }
-export type PixelUrls = {
-  normal: string;
-  cheering: string;
-  in_despair: string;
+export type ImageResponse = {
+  posture: string;
+  url: string;
 };
 
 export type Gender = 'male' | 'female';

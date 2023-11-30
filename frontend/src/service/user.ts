@@ -1,5 +1,5 @@
 import { SERVER_ADDRESS } from '../constants';
-import { PixelUrls, UserProfile } from '../types';
+import { ImageResponse, UserProfile } from '../types';
 
 export async function registerUserProfile(
   nickname: string,
@@ -14,7 +14,10 @@ export async function registerUserProfile(
   return fetch(url, {
     method: 'POST',
   })
-    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      return res.json();
+    })
     .catch(console.error);
 }
 
@@ -33,14 +36,44 @@ export async function getUserItems(userId: number) {
     .catch(console.error);
 }
 
-export async function registerUserImage(
+export async function registerUserNormalImage(
   userId: number,
   imageFile: File
-): Promise<PixelUrls> {
+): Promise<ImageResponse> {
   const formdata = new FormData();
   formdata.append('photo', imageFile);
 
-  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/pixel`, {
+  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/pixel/normal`, {
+    method: 'POST',
+    body: formdata,
+  })
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function registerUserCheeringImage(
+  userId: number,
+  imageFile: File
+): Promise<ImageResponse> {
+  const formdata = new FormData();
+  formdata.append('photo', imageFile);
+
+  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/pixel/cheering`, {
+    method: 'POST',
+    body: formdata,
+  })
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function registerUserDespairImage(
+  userId: number,
+  imageFile: File
+): Promise<ImageResponse> {
+  const formdata = new FormData();
+  formdata.append('photo', imageFile);
+
+  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/pixel/despair`, {
     method: 'POST',
     body: formdata,
   })
