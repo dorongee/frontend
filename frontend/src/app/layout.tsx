@@ -15,7 +15,7 @@ export const pretendard = localFont({
 export default function RootLayout({ children }) {
   return (
     <html lang="ko" className={pretendard.className}>
-      <body className={`flex justify-center w-screen bg-dorong-primary-main`}>
+      <body className={`flex justify-center w-screen bg-dorong-primary-light`}>
         <main className="max-w-[500px] w-full bg-dorong-gray-1 text-center h-screen">
           {children}
         </main>
