@@ -23,9 +23,10 @@ export default function VillageDetailPage({ params: { slug } }: Props) {
   useEffect(() => {
     const villageId = Number(slug);
     const userId = Number(sessionStorage.getItem(USER_ID_KEY));
-    getMissionsByVillageIdAndUserId(villageId, userId).then((res) =>
-      setMissions(res)
-    );
+    getMissionsByVillageIdAndUserId(1, 1).then((res) => {
+      setMissions(res);
+      // console.log(res);
+    });
   }, [missionUpdate]);
 
   return (

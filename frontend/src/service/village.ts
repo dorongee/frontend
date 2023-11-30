@@ -23,6 +23,7 @@ export async function completeMission(missionId: number) {
     `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/mission/${missionId}`,
     {
       method: 'PUT',
+      body: JSON.stringify({ is_complete: true }),
     }
   )
     .then((res) => res.json())

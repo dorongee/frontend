@@ -23,7 +23,7 @@ type Props = {
 };
 
 export default function VillageDetailContainer({ missions, onClick }: Props) {
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(3);
 
   const [clickedType, setClickedType] = useState<'O' | 'X' | '-'>('-');
   const OImgUrl = clickedType === 'O' ? '/images/O-blue.svg' : '/images/O.svg';
@@ -113,10 +113,11 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
                 <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
               </div>
               <p className="mt-3 text-xs text-dorong-gray-5">
-                5개 중 3개만 성공해도 미션 클리어!
+                5개 중 <span className="text-dorong-primary-main">3개</span>만
+                성공해도 미션 클리어!
               </p>
               <ul className="flex flex-col gap-4 mt-7">
-                {dummy.map((mission) => (
+                {missions.map((mission) => (
                   <MissionItem
                     mission={mission}
                     key={mission.user_mission_id}
@@ -127,7 +128,8 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
                 <Button
                   isAvailable={
-                    dummy.filter((mission) => mission.is_complete).length >= 3
+                    missions.filter((mission) => mission.is_complete).length >=
+                    3
                   }
                   onClick={() => setStep(3)}
                 >
@@ -147,7 +149,7 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
                 Q
               </p>
               <div className="px-[24px] mb-[100px]">
-                <div className="w-full border-dorong-primary-light border-[2px]">
+                <div className="w-full border-dorong-primary-light border-[2px] rounded-xl">
                   <p className="text-[20px] font-bold leading-[23.6px] text-dorong-black px-[36px] py-[23px] ">
                     이 마을은 전통적인 제주도 가옥과 아름다운 풍경으로
                     유명한가요?
