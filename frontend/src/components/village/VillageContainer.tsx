@@ -100,7 +100,11 @@ export default function VillageContainer() {
                 }
                 return (
                   <UserItemList
-                    key={`${userItems[index]?.item_name}-${index}`}
+                    key={`${
+                      userItems
+                        ? userItems[index]?.item_name + '-' + index
+                        : index
+                    } `}
                   />
                 );
               })}
@@ -116,7 +120,7 @@ export default function VillageContainer() {
 
         <div className="flex gap-[8px] items-center">
           <p className="text-[14px] font-medium leading-[18.2px] text-dorong-gray-7">
-            시작하기만 보기
+            미완료만 보기
           </p>
           <button onClick={() => setToggleStart((prev) => !prev)}>
             <Image src={toggleImgUrl} alt="toggle-off" width={44} height={24} />
