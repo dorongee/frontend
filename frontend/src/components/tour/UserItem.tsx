@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import Button from '../Button';
-import { useState } from 'react';
 import { UserItem } from '../../types';
 
 interface UserItemListProps {

@@ -23,6 +23,7 @@ export default function VillageContainer() {
     (async () => {
       const profile = await getUserProfile(1);
       const items = await getUserItems(1);
+      console.log(items);
       setUserProfile(profile);
       setUserItems(items);
     })();
@@ -63,7 +64,7 @@ export default function VillageContainer() {
             alt="main-map"
             width={80}
             height={377}
-            className="absolute z-10 left-[50%] translate-x-[-50%]"
+            className="absolute z-10 left-[50%] translate-x-[-50%] object-cover w-auto h-auto"
           />
         </div>
         <div className="mb-[13px]">
@@ -88,10 +89,19 @@ export default function VillageContainer() {
           <div className="relative w-full h-full overflow-x-auto scrollbar-hide">
             <div className="flex gap-[8px] absolute top-[24px]">
               {Array.from({ length: 13 }, (_, index) => index).map((index) => {
-                if (userItems?.length <= index) {
-                  return <UserItemList key={index} item={userItems[index]} />;
+                if (userItems?.length > index) {
+                  return (
+                    <UserItemList
+                      key={userItems[index]?.item_name}
+                      item={userItems[index]}
+                    />
+                  );
                 }
-                return <UserItemList key={index} />;
+                return (
+                  <UserItemList
+                    key={`${userItems[index]?.item_name}-${index}`}
+                  />
+                );
               })}
             </div>
           </div>

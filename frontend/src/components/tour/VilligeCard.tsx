@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import StartButton from './StartButton';
 import { UserProfile, Village } from '../../types';
+import Link from 'next/link';
 interface VillageCardProps {
   village: Village;
   toggleStart: boolean;
@@ -8,8 +9,8 @@ interface VillageCardProps {
 }
 
 function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
-  const isClosed = village.distance <= Number(village.radius) * 15;
-  const villageType = userProfile.completed_villages.includes(
+  const isClosed = village?.distance <= Number(village.radius) * 15;
+  const villageType = userProfile?.completed_villages.includes(
     village.village_id
   )
     ? 'complete'
@@ -25,6 +26,7 @@ function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
           alt={village.village_name}
           width={85}
           height={65}
+          className="w-auto h-auto"
         />
         <div className="flex flex-col items-start justify-center gap-1">
           <h1 className="text-[18px] font-bold leading-[12.6px] text-dorong-black">
@@ -41,7 +43,9 @@ function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
           </p>
         </div>
       </div>
-      <StartButton type={villageType} />
+      <Link href={`village/${village.village_id}`}>
+        <StartButton type={villageType} />
+      </Link>
     </div>
   );
 }
