@@ -21,13 +21,13 @@ module.exports = {
           to: { width: '100%' },
         },
         loading: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-40rem)' },
+          '0%, 100%': { transform: 'translateX(0)' },
+          '50%': { transform: 'translateX(-50rem)' },
         },
       },
       animation: {
         progress: 'progress 10s linear',
-        loading: 'loading 5s linear ',
+        loading: 'loading 10s linear infinite ',
       },
       boxShadow: {
         bottom: 'inset 0 -10px 5px 0 rgb(255, 255, 255, 0.5)',

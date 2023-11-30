@@ -3,11 +3,14 @@
 import Image from 'next/image';
 import villageExample from '/public/images/village-detail-example.png';
 import Button from '../Button';
-import { useEffect, useState } from 'react';
-import { Mission } from '../../types';
+import { useContext, useEffect, useState } from 'react';
+import { Mission, Village } from '../../types';
 import MissionItem from './MissionItem';
 import exampleImg from 'public/images/example.png';
 import { useRouter } from 'next/navigation';
+import { getVillage } from '../../service/village';
+import { PositionContext } from '../../app/layout';
+import { checkVillageDistance } from '../../app/util';
 
 const dummy = [
   '먹태깡 맛있게 먹기',
@@ -20,9 +23,14 @@ const dummy = [
 type Props = {
   missions: Mission[];
   onClick: () => void;
+  villageId: number;
 };
 
-export default function VillageDetailContainer({ missions, onClick }: Props) {
+export default function VillageDetailContainer({
+  missions,
+  onClick,
+  villageId,
+}: Props) {
   const [step, setStep] = useState<number>(1);
 
   const [clickedType, setClickedType] = useState<'O' | 'X' | '-'>('-');
@@ -30,10 +38,11 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
   const XImgUrl = clickedType === 'X' ? '/images/X-red.svg' : '/images/X.svg';
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [village, setVillage] = useState<Village>();
+  const [isClosed, setIsClosed] = useState(false);
 
   const router = useRouter();
-  const villigeName = '하효';
-
+  const pos = useContext(PositionContext);
   const dummy = [
     {
       user_mission_id: 1,
@@ -67,6 +76,26 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
   };
 
   useEffect(() => {
+    (async () => {
+      const res = await getVillage(villageId);
+      setVillage(res);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!village) return;
+
+    const distance = checkVillageDistance({
+      my_lat: pos.latitude,
+      my_lon: pos.longitude,
+      village_lat: Number(village.latitude),
+      village_lon: Number(village.longitude),
+    });
+    console.log(village);
+    setIsClosed(distance <= Number(village.radius) * 15);
+  }, [village]);
+
+  useEffect(() => {
     if (step === 4) {
       setTimeout(() => {
         router.push('/village');
@@ -93,10 +122,7 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
                 </div>
               </div>
               <p className="mt-[52px] mx-5 text-sm text-dorong-gray-7">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Dolores, dolore, nihil optio aliquam ipsum quidem debitis at
-                consequuntur unde, deserunt laudantium mollitia eligendi esse
-                dolorem possimus quis fugiat rem velit.
+                {village?.village_description}
               </p>
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
                 <Button isAvailable={true} onClick={() => setStep(2)}>
@@ -223,7 +249,7 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
               <h1 className="text-dorong-gray-7 text-[24px] font-bold leading-[28.32px] mb-[2px]">
                 '
                 <strong className="text-dorong-black text-[24px] font-extrabold leading-[28.32px]">
-                  {villigeName}
+                  {village?.village_name}
                 </strong>
                 ' 마을 생산품
               </h1>
