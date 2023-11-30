@@ -5,21 +5,21 @@ import VilligeCard from '../../components/VilligeCard';
 import UserItemList from '../../components/UserItem';
 import { useState } from 'react';
 
-const MOCK_ITEMS = [
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-];
-export default function Tour() {
+type Props = {
+  items: {
+    name: string;
+    image: string;
+  }[];
+  villages: object[];
+};
+
+export default function VillageContainer({ items, villages }: Props) {
   const [toggleStart, setToggleStart] = useState(false);
   const toggleImgUrl = toggleStart
     ? '/images/toggle-on.svg'
     : '/images/toggle-off.svg';
   const userName = '도롱';
+
   return (
     <section className="relative flex flex-col w-full grow bg-dorong-white pb-[65px] min-h-screen">
       <div className="w-full flex justify-center items-center h-[56px] shadow-[0_2px_4px_0px_rgba(0,0,0,0.05)]">
@@ -56,7 +56,7 @@ export default function Tour() {
 
           <div className="relative w-full h-full overflow-x-auto scrollbar-hide">
             <div className="flex gap-[8px] absolute top-[24px]">
-              {MOCK_ITEMS.map((item, index) => (
+              {items.map((item, index) => (
                 <UserItemList key={index} item={item} />
               ))}
             </div>

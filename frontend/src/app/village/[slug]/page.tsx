@@ -11,7 +11,7 @@ type Props = {
 export default function VillageDetailPage({ params: { slug } }: Props) {
   return (
     <section className="relative min-h-screen grow bg-dorong-white">
-      <div className="flex my-[17px] items-center justify-between px-3">
+      <div className="flex py-[17px] items-center justify-between px-3">
         <button className="">
           <Image src={arrowLeft} alt="arrowLeft" />
         </button>

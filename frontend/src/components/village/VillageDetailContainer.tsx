@@ -18,6 +18,9 @@ export default function VillageDetailContainer() {
 
   const [completedMissions, setCompletedMissions] = useState([]);
 
+  const [clickedType, setClickedType] = useState<'O' | 'X' | '-'>('-');
+  const OImgUrl = clickedType === 'O' ? '/images/O-blue.svg' : '/images/O.svg';
+  const XImgUrl = clickedType === 'X' ? '/images/X-red.svg' : '/images/X.svg';
   return (
     <section>
       {
@@ -32,7 +35,7 @@ export default function VillageDetailContainer() {
                 />
                 <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
                   <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                  <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                  <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark"></div>
                   <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark"></div>
                 </div>
               </div>
@@ -42,7 +45,7 @@ export default function VillageDetailContainer() {
                 consequuntur unde, deserunt laudantium mollitia eligendi esse
                 dolorem possimus quis fugiat rem velit.
               </p>
-              <div className="absolute w-full px-6 bottom-12">
+              <div className="absolute w-full h-[48px] px-6 bottom-12">
                 <Button isAvailable={true} onClick={() => setStep(2)}>
                   다음 퀘스트로 이동
                 </Button>
@@ -60,8 +63,11 @@ export default function VillageDetailContainer() {
                 5개 중 3개만 성공해도 미션 클리어!
               </p>
               <ul className="flex flex-col gap-4 mt-7">
-                {dummy.map((text) => (
-                  <li className="flex items-center bg-dorong-gray-4 w-[327px] h-[80px] rounded-lg gap-3 px-3">
+                {dummy.map((text, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-center bg-dorong-gray-4 w-[327px] h-[80px] rounded-lg gap-3 px-3"
+                  >
                     <div className="flex items-center justify-center bg-dorong-gray-1 grow h-[56px] text-dorong-black">
                       <p>{text}</p>
                     </div>
@@ -69,14 +75,41 @@ export default function VillageDetailContainer() {
                   </li>
                 ))}
               </ul>
-              <div className="absolute w-full px-6 bottom-12">
-                <Button isAvailable={true} onClick={() => setStep(2)}>
+              <div className="absolute w-full h-[48px] px-6 bottom-12">
+                <Button isAvailable={true} onClick={() => setStep(3)}>
                   다음 퀘스트로 이동
                 </Button>
               </div>
             </div>
           ),
-          3: <div>hello</div>,
+          3: (
+            <section className="relative flex flex-col items-center w-full">
+              <div className="flex gap-2 mt-2">
+                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
+              </div>
+              <p className="mt-[74px] text-[36px] font-extrabold leading-[43.2px] text-dorong-primary-light mb-[8px]">
+                Q
+              </p>
+              <div className="px-[24px] mb-[100px]">
+                <div className="w-full border-dorong-primary-light border-[2px]">
+                  <p className="text-[20px] font-bold leading-[23.6px] text-dorong-black px-[36px] py-[23px] ">
+                    이 마을은 전통적인 제주도 가옥과 아름다운 풍경으로
+                    유명한가요?
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-center gap-[52px] w-full">
+                <button onClick={() => setClickedType('O')}>
+                  <Image src={OImgUrl} alt="O" width={120} height={120} />
+                </button>
+                <button onClick={() => setClickedType('X')}>
+                  <Image src={XImgUrl} alt="X" width={120} height={120} />
+                </button>
+              </div>
+            </section>
+          ),
         }[step]
       }
     </section>
