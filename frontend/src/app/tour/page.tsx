@@ -32,7 +32,7 @@ export default function Tour() {
         </div>
       </div>
 
-      <div className="h-[140px] rounded-l-[16px] bg-[#F3E7F9] ml-[24px] flex pl-64 ">
+      <div className="h-[140px] rounded-l-[16px] bg-[#F3E7F9] ml-[24px] flex pl-[50%] ">
         <div className="mt-[16px] flex flex-col w-full">
           <h4 className="text-[12px] font-bold leading-[14.16px] text-dorong-gray-6 flex">
             Item
