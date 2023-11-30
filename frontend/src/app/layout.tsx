@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko" className={pretendard.className}>
       <body className={`flex justify-center w-screen bg-dorong-primary-main`}>
-        <main className="min-w-[500px] min-h-screen bgre bg-dorong-gray-1 text-center">
+        <main className="max-w-[500px] w-full bg-dorong-gray-1 text-center h-screen">
           {children}
         </main>
       </body>
