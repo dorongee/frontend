@@ -7,25 +7,30 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
-  --dorong-primary-dark: #662AB8;
-  --dorong-primary: #9E36CF;
-  --dorong-primary-light: #CF9AE9;
-  --dorong-primary-light-light : #F3E7F9;
+  --dorong-primary-dark: #662ab8;
+  --dorong-primary: #9e36cf;
+  --dorong-primary-light: #cf9ae9;
+  --dorong-primary-light-light: #f3e7f9;
 
   --dorong-black: #262627;
-  --dorong-white: #FDFDFF;
-  --dorong-gray-0:#DEDEE4;
-  --dorong-gray-1:#FAFAFA;
-  --dorong-gray-2:#F7F7F9;
-  --dorong-gray-3:#EEEEF1;
-  --dorong-gray-4:#DADADF;
-  --dorong-gray-5:#BDBDBF;
-  --dorong-gray-6:#99999F;
-  --dorong-gray-7:#66666F;
-  --dorong-gray-8:#46464B;
+  --dorong-white: #fdfdff;
+  --dorong-gray-0: #dedee4;
+  --dorong-gray-1: #fafafa;
+  --dorong-gray-2: #f7f7f9;
+  --dorong-gray-3: #eeeef1;
+  --dorong-gray-4: #dadadf;
+  --dorong-gray-5: #bdbdbf;
+  --dorong-gray-6: #99999f;
+  --dorong-gray-7: #66666f;
+  --dorong-gray-8: #46464b;
 
   --dorong-error: #f30b0b;
   --dorong-positive: #009b07;
+
+  --dorong-orange: rgba(243, 11, 11, 0.5);
+  --dorong-orange-light: #ffe8e8;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 @media (prefers-color-scheme: dark) {

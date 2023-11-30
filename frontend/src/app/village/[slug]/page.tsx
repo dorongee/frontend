@@ -26,7 +26,9 @@ export default function VillageDetailPage({ params: { slug } }: Props) {
 
   useEffect(() => {
     const userId = Number(sessionStorage.getItem(USER_ID_KEY));
-    getMissionsByVillageIdAndUserId(villageId, userId).then((res) => {
+
+    //TODO : UserID를 1로 고정해서 테스트 중
+    getMissionsByVillageIdAndUserId(villageId, 1).then((res) => {
       setMissions(res);
       setIsLoading(false);
     });

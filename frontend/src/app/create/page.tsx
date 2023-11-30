@@ -20,7 +20,12 @@ import {
 } from '../../constants';
 import Button from '../../components/Button';
 import { Gender, SelectType } from '../../types';
-import { registerUserImage, registerUserProfile } from '../../service/user';
+import {
+  registerUserCheeringImage,
+  registerUserDespairImage,
+  registerUserNormalImage,
+  registerUserProfile,
+} from '../../service/user';
 import Loading from '../../components/create/loading';
 import Complete from '../../components/create/complete';
 import { notifyToast } from '../../service/notify';
@@ -43,7 +48,7 @@ export default function CreatePage() {
       const file = e.target.files[0];
       if (file.size > MAX_IMAGE_BYTE) {
         console.log('최대  이미지 사이즈 5MB를 초과하였습니다.');
-        notifyToast('최대  이미지 사이즈 10MB를 초과하였습니다.', 'error');
+        notifyToast('최대  이미지 사이즈 5MB를 초과하였습니다.', 'error');
         return;
       }
       const url = window.URL.createObjectURL(file);
@@ -58,12 +63,15 @@ export default function CreatePage() {
       .then((res) => res.user_data_id)
       .then((userId) => {
         sessionStorage.setItem(USER_ID_KEY, userId.toString());
-        return registerUserImage(userId, imageFile);
+        const normal = registerUserNormalImage(userId, imageFile);
+        const cheering = registerUserCheeringImage(userId, imageFile);
+        const despair = registerUserDespairImage(userId, imageFile);
+        return Promise.all([normal, cheering, despair]);
       })
       .then((res) => {
-        sessionStorage.setItem(CHEERING_IMG_KEY, res.cheering);
-        sessionStorage.setItem(DESPAIR_IMG_KEY, res.in_despair);
-        sessionStorage.setItem(NORMAL_IMG_KEY, res.normal);
+        sessionStorage.setItem(CHEERING_IMG_KEY, res[0].url);
+        sessionStorage.setItem(DESPAIR_IMG_KEY, res[1].url);
+        sessionStorage.setItem(NORMAL_IMG_KEY, res[2].url);
       })
       .then(() => setCurrentState('complete'));
   };
@@ -183,7 +191,7 @@ export default function CreatePage() {
                   </div>
                 </div>
               </div>
-              <div className="absolute w-full px-6 bottom-12 h-[48px] text-dorong-white font-medium">
+              <div className="w-full px-6 bottom-12 h-[48px] text-dorong-white font-medium mt-[88px]">
                 <Button isAvailable={buttonActive} onClick={handleClick}>
                   생성하기
                 </Button>

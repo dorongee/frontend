@@ -12,14 +12,6 @@ import { getVillage } from '../../service/village';
 import { PositionContext } from '../../app/layout';
 import { checkVillageDistance } from '../../app/util';
 
-const dummy = [
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-];
-
 type Props = {
   missions: Mission[];
   onClick: () => void;
@@ -43,33 +35,6 @@ export default function VillageDetailContainer({
 
   const router = useRouter();
   const pos = useContext(PositionContext);
-  const dummy = [
-    {
-      user_mission_id: 1,
-      mission_details: '먹태깡 먹기',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 2,
-      mission_details: '먹태깡 먹기',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 3,
-      mission_details: '먹태깡 먹기',
-      is_complete: true,
-    },
-    {
-      user_mission_id: 4,
-      mission_details: '먹태깡 먹기',
-      is_complete: true,
-    },
-    {
-      user_mission_id: 5,
-      mission_details: '먹태깡 먹기',
-      is_complete: true,
-    },
-  ];
 
   const handleSuccessClick = () => {
     setModalOpen(true);
@@ -91,6 +56,7 @@ export default function VillageDetailContainer({
       village_lat: Number(village.latitude),
       village_lon: Number(village.longitude),
     });
+    console.log(distance <= Number(village.radius) * 15);
     setIsClosed(distance <= Number(village.radius) * 15);
   }, [village]);
 
@@ -101,7 +67,6 @@ export default function VillageDetailContainer({
       }, 2000);
     }
   }, [step]);
-
   return (
     <section>
       {
@@ -114,17 +79,24 @@ export default function VillageDetailContainer({
                   alt="villageImg"
                   className="object-cover w-full shadow-bottom"
                 />
-                <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
-                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
-                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
-                </div>
+                {isClosed ? (
+                  <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-8 px-8 py-1 left-1/2 w-[327px] bg-dorong-orange-light text-xs rounded-md border-2 border-dorong-orange-main">
+                    아직[{village.village_name}]에 도착하지 않았습니다.{' '}
+                    {village.village_name}에 도착하면 퀘스트를 수행할 수 있어요.
+                  </div>
+                ) : (
+                  <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
+                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
+                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
+                  </div>
+                )}
               </div>
               <p className="mt-[52px] mx-5 text-sm text-dorong-gray-7">
                 {village?.village_description}
               </p>
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
-                <Button isAvailable={true} onClick={() => setStep(2)}>
+                <Button isAvailable={!isClosed} onClick={() => setStep(2)}>
                   퀘스트로 이동
                 </Button>
               </div>
@@ -138,10 +110,11 @@ export default function VillageDetailContainer({
                 <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
               </div>
               <p className="mt-3 text-xs text-dorong-gray-5">
-                5개 중 3개만 성공해도 미션 클리어!
+                5개 중 <span className="text-dorong-primary-main">3개</span>만
+                성공해도 미션 클리어!
               </p>
               <ul className="flex flex-col gap-4 mt-7">
-                {dummy.map((mission) => (
+                {missions?.map((mission) => (
                   <MissionItem
                     mission={mission}
                     key={mission.user_mission_id}
@@ -152,7 +125,8 @@ export default function VillageDetailContainer({
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
                 <Button
                   isAvailable={
-                    dummy.filter((mission) => mission.is_complete).length >= 3
+                    missions.filter((mission) => mission.is_complete).length >=
+                    3
                   }
                   onClick={() => setStep(3)}
                 >
@@ -172,7 +146,7 @@ export default function VillageDetailContainer({
                 Q
               </p>
               <div className="px-[24px] mb-[100px]">
-                <div className="w-full border-dorong-primary-light border-[2px]">
+                <div className="w-full border-dorong-primary-light border-[2px] rounded-xl">
                   <p className="text-[20px] font-bold leading-[23.6px] text-dorong-black px-[36px] py-[23px] ">
                     이 마을은 전통적인 제주도 가옥과 아름다운 풍경으로
                     유명한가요?
