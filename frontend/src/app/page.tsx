@@ -5,15 +5,15 @@ import { useEffect } from 'react';
 import Button from '../components/Button';
 
 export default function Home() {
-  useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
-      });
-    } else {
-      console.log('위치정보 사용 불가능');
-    }
-  });
+  // useEffect(() => {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       console.log(position.coords.latitude, position.coords.longitude);
+  //     });
+  //   } else {
+  //     console.log('위치정보 사용 불가능');
+  //   }
+  // });
   return (
     <section className="relative flex flex-col h-full">
       <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[184px]" />
@@ -26,7 +26,12 @@ export default function Home() {
           className="z-10"
         />
         <div className="w-full px-6">
-          <Button isAvailable={true}>여행을 시작할까요?</Button>
+          <Button
+            isAvailable={true}
+            className="text-[20px] font-medium leading-[23.6px]"
+          >
+            여행을 시작할까요?
+          </Button>
         </div>
       </div>
     </section>
