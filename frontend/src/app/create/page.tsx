@@ -10,19 +10,27 @@ import {
 } from 'react';
 import folderImage from 'public/images/folder.svg';
 import Select from 'react-select';
-import { AGE_OPTIONS } from '../../constants';
+import {
+  AGE_OPTIONS,
+  CHEERING_IMG_KEY,
+  DESPAIR_IMG_KEY,
+  MAX_IMAGE_BYTE,
+  NORMAL_IMG_KEY,
+  USER_ID_KEY,
+} from '../../constants';
 import Button from '../../components/Button';
-import { SelectType } from '../../types';
-import { registerUserProfile } from '../../service/user';
+import { Gender, SelectType } from '../../types';
+import { registerUserImage, registerUserProfile } from '../../service/user';
 import Loading from '../../components/create/loading';
 import Complete from '../../components/create/complete';
+import { notifyToast } from '../../service/notify';
 
 export default function CreatePage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [age, setAge] = useState<SelectType>({ value: 20, label: '20' });
-  const [gender, setGender] = useState<'man' | 'woman' | null>(null);
+  const [gender, setGender] = useState<Gender | null>(null);
   const [buttonActive, setButtonActive] = useState(false);
   const [currentState, setCurrentState] = useState<
     'create' | 'loading' | 'complete'
@@ -33,13 +41,11 @@ export default function CreatePage() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];
-      // if (file.size > MAX_IMAGE_BYTE) {
-      //   notifyToast(
-      //     '최대 썸네일 이미지 사이즈 10MB를 초과하였습니다.',
-      //     'error'
-      //   );
-      //   return;
-      // }
+      if (file.size > MAX_IMAGE_BYTE) {
+        console.log('최대  이미지 사이즈 5MB를 초과하였습니다.');
+        notifyToast('최대  이미지 사이즈 10MB를 초과하였습니다.', 'error');
+        return;
+      }
       const url = window.URL.createObjectURL(file);
       setImageFile(file);
       setImageUrl(url);
@@ -48,9 +54,18 @@ export default function CreatePage() {
 
   const handleClick = () => {
     setCurrentState('loading');
-    registerUserProfile(nickname, age.value, gender).then(() => {
-      setCurrentState('complete');
-    });
+    registerUserProfile(nickname, age.value, gender)
+      .then((res) => res.user_data_id)
+      .then((userId) => {
+        sessionStorage.setItem(USER_ID_KEY, userId.toString());
+        return registerUserImage(userId, imageFile);
+      })
+      .then((res) => {
+        sessionStorage.setItem(CHEERING_IMG_KEY, res.cheering);
+        sessionStorage.setItem(DESPAIR_IMG_KEY, res.in_despair);
+        sessionStorage.setItem(NORMAL_IMG_KEY, res.normal);
+      })
+      .then(() => setCurrentState('complete'));
   };
 
   useEffect(() => {
@@ -147,21 +162,21 @@ export default function CreatePage() {
                   <div className="flex w-[160px] justify-between">
                     <button
                       className={`py-[9px] px-[21px] ${
-                        gender === 'man'
+                        gender === 'male'
                           ? 'text-dorong-white bg-dorong-primary-main'
                           : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight'
                       }  rounded-lg`}
-                      onClick={() => setGender('man')}
+                      onClick={() => setGender('male')}
                     >
                       남자
                     </button>
                     <button
                       className={`py-[9px] px-[21px] ${
-                        gender === 'woman'
+                        gender === 'female'
                           ? 'text-dorong-white bg-dorong-primary-main'
                           : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight'
                       } rounded-lg`}
-                      onClick={() => setGender('woman')}
+                      onClick={() => setGender('female')}
                     >
                       여자
                     </button>
@@ -176,7 +191,7 @@ export default function CreatePage() {
             </section>
           ),
           loading: <Loading />,
-          complete: <Complete />,
+          complete: <Complete nickname={nickname} />,
         }[currentState]
       }
     </section>

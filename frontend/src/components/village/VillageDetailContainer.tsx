@@ -4,6 +4,8 @@ import Image from 'next/image';
 import villageExample from '/public/images/village-detail-example.png';
 import Button from '../Button';
 import { useState } from 'react';
+import { Mission } from '../../types';
+import MissionItem from './MissionItem';
 
 const dummy = [
   '먹태깡 맛있게 먹기',
@@ -13,14 +15,45 @@ const dummy = [
   '먹태깡 맛있게 먹기',
 ];
 
-export default function VillageDetailContainer() {
-  const [step, setStep] = useState<number>(1);
+type Props = {
+  missions: Mission[];
+  onClick: () => void;
+};
 
-  const [completedMissions, setCompletedMissions] = useState([]);
+export default function VillageDetailContainer({ missions, onClick }: Props) {
+  const [step, setStep] = useState<number>(1);
 
   const [clickedType, setClickedType] = useState<'O' | 'X' | '-'>('-');
   const OImgUrl = clickedType === 'O' ? '/images/O-blue.svg' : '/images/O.svg';
   const XImgUrl = clickedType === 'X' ? '/images/X-red.svg' : '/images/X.svg';
+
+  const dummy = [
+    {
+      user_mission_id: 1,
+      mission_details: '먹태깡 먹기',
+      is_complete: false,
+    },
+    {
+      user_mission_id: 2,
+      mission_details: '먹태깡 먹기',
+      is_complete: false,
+    },
+    {
+      user_mission_id: 3,
+      mission_details: '먹태깡 먹기',
+      is_complete: false,
+    },
+    {
+      user_mission_id: 4,
+      mission_details: '먹태깡 먹기',
+      is_complete: true,
+    },
+    {
+      user_mission_id: 5,
+      mission_details: '먹태깡 먹기',
+      is_complete: true,
+    },
+  ];
   return (
     <section>
       {
@@ -34,9 +67,9 @@ export default function VillageDetailContainer() {
                   className="object-cover w-full shadow-bottom"
                 />
                 <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
-                  <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                  <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark"></div>
-                  <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark"></div>
+                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
+                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
                 </div>
               </div>
               <p className="mt-[52px] mx-5 text-sm text-dorong-gray-7">
@@ -45,9 +78,9 @@ export default function VillageDetailContainer() {
                 consequuntur unde, deserunt laudantium mollitia eligendi esse
                 dolorem possimus quis fugiat rem velit.
               </p>
-              <div className="absolute w-full h-[48px] px-6 bottom-12">
+              <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
                 <Button isAvailable={true} onClick={() => setStep(2)}>
-                  다음 퀘스트로 이동
+                  퀘스트로 이동
                 </Button>
               </div>
             </section>
@@ -55,29 +88,30 @@ export default function VillageDetailContainer() {
           2: (
             <div className="flex flex-col items-center ">
               <div className="flex gap-2 mt-2">
-                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
               </div>
               <p className="mt-3 text-xs text-dorong-gray-5">
                 5개 중 3개만 성공해도 미션 클리어!
               </p>
               <ul className="flex flex-col gap-4 mt-7">
-                {dummy.map((text, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center bg-dorong-gray-4 w-[327px] h-[80px] rounded-lg gap-3 px-3"
-                  >
-                    <div className="flex items-center justify-center bg-dorong-gray-1 grow h-[56px] text-dorong-black">
-                      <p>{text}</p>
-                    </div>
-                    <div className="w-[56px] h-[56px] bg-dorong-gray-3"></div>
-                  </li>
+                {dummy.map((mission) => (
+                  <MissionItem
+                    mission={mission}
+                    key={mission.user_mission_id}
+                    onClick={onClick}
+                  />
                 ))}
               </ul>
-              <div className="absolute w-full h-[48px] px-6 bottom-12">
-                <Button isAvailable={true} onClick={() => setStep(3)}>
-                  다음 퀘스트로 이동
+              <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
+                <Button
+                  isAvailable={
+                    dummy.filter((mission) => mission.is_complete).length >= 3
+                  }
+                  onClick={() => setStep(3)}
+                >
+                  퀴즈로 이동
                 </Button>
               </div>
             </div>
@@ -85,9 +119,9 @@ export default function VillageDetailContainer() {
           3: (
             <section className="relative flex flex-col items-center w-full">
               <div className="flex gap-2 mt-2">
-                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                <div className="w-4 h-4 border-2 rounded-full border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
               </div>
               <p className="mt-[74px] text-[36px] font-extrabold leading-[43.2px] text-dorong-primary-light mb-[8px]">
                 Q

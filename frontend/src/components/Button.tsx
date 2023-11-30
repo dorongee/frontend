@@ -5,10 +5,10 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 function Button({ isAvailable, children, className, onClick }: ButtonProps) {
   const bgTextColor = isAvailable
     ? 'bg-dorong-primary-main'
-    : 'bg-dorong-gray-0';
+    : 'bg-dorong-gray-0 pointer-events-none';
   return (
     <button
-      className={`flex items-center justify-center w-full h-full rounded-md font-bold ${bgTextColor} ${className}
+      className={`flex items-center justify-center w-full h-full text-dorong-white rounded-md ${bgTextColor} ${className}
       `}
       onClick={onClick}
     >
