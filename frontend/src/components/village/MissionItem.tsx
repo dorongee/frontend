@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Mission } from '../../types';
 import Image from 'next/image';
 import exampleImg from 'public/images/example.png';

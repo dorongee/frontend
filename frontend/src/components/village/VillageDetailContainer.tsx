@@ -12,14 +12,6 @@ import { getVillage } from '../../service/village';
 import { PositionContext } from '../../app/layout';
 import { checkVillageDistance } from '../../app/util';
 
-const dummy = [
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-  '먹태깡 맛있게 먹기',
-];
-
 type Props = {
   missions: Mission[];
   onClick: () => void;
@@ -43,33 +35,6 @@ export default function VillageDetailContainer({
 
   const router = useRouter();
   const pos = useContext(PositionContext);
-  const dummy = [
-    {
-      user_mission_id: 1,
-      mission_details: '먹태깡 먹기',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 2,
-      mission_details: '먹태깡 먹기',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 3,
-      mission_details: '먹태깡 먹기',
-      is_complete: true,
-    },
-    {
-      user_mission_id: 4,
-      mission_details: '먹태깡 먹기',
-      is_complete: true,
-    },
-    {
-      user_mission_id: 5,
-      mission_details: '먹태깡 먹기',
-      is_complete: true,
-    },
-  ];
 
   const handleSuccessClick = () => {
     setModalOpen(true);
