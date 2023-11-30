@@ -4,16 +4,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import Button from '../../components/Button';
 
-export default function Home() {
-  // useEffect(() => {
-  //   if ('geolocation' in navigator) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       console.log(position.coords.latitude, position.coords.longitude);
-  //     });
-  //   } else {
-  //     console.log('위치정보 사용 불가능');
-  //   }
-  // });
+export default function Loading() {
   return (
     <section className="relative flex flex-col h-full">
       <div className="flex h-[220px] flex-col-reverse z-10 items-center gap-1">
