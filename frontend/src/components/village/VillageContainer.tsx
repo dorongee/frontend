@@ -33,7 +33,7 @@ export default function VillageContainer() {
       const res = await getVillageAll();
       if (!res) return;
       navigator.geolocation.getCurrentPosition((position) => {
-        res.forEach((village) => {
+        res.forEach((village: any) => {
           village.distance = checkVillageDistance({
             my_lat: position.coords.latitude,
             my_lon: position.coords.longitude,
