@@ -17,7 +17,7 @@ function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
     : isClosed
     ? 'start'
     : 'check';
-  if (toggleStart && villageType !== 'start') return;
+  if (toggleStart && villageType === 'complete') return;
   return (
     <div className="flex px-[12px] justify-between items-center h-[70px] bg-dorong-white rounded-[10px] shadow-[0_2px_10px_0px_rgba(0,0,0,0.07)]">
       <div className="flex gap-[16px]">
