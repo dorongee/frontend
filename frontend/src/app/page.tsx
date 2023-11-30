@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 import Button from '../components/Button';
+import Link from 'next/link';
 
 export default function Home() {
   // useEffect(() => {
@@ -26,12 +27,14 @@ export default function Home() {
           className="z-10"
         />
         <div className="w-full px-6">
-          <Button
-            isAvailable={true}
-            className="text-[20px] font-medium leading-[23.6px]"
-          >
-            여행을 시작할까요?
-          </Button>
+          <Link href="./create">
+            <Button
+              isAvailable={true}
+              className="text-[20px] font-medium leading-[23.6px]"
+            >
+              여행을 시작할까요?
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

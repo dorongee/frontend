@@ -36,6 +36,7 @@ module.exports = {
           dark: 'var(--dorong-primary-dark)',
           main: 'var(--dorong-primary)',
           light: 'var(--dorong-primary-light)',
+          lightlight: 'var(--dorong-primary-light-light)',
         },
 
         gray: {
