@@ -3,15 +3,13 @@ interface VillageInfo {
   my_lon: number;
   village_lat: number;
   village_lon: number;
-  radius: number;
 }
-export function checkVillage({
+export function checkVillageDistance({
   my_lat,
   my_lon,
   village_lat,
   village_lon,
-  radius,
-}: VillageInfo): boolean {
+}: VillageInfo) {
   const R = 6371; // 지구 반지름 (단위: km)
   const dLat = deg2rad(village_lat - my_lat);
   const dLon = deg2rad(village_lon - my_lon);
@@ -23,8 +21,7 @@ export function checkVillage({
       Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // 두 지점 간의 거리 (단위: km)
-
-  return distance <= radius;
+  return distance;
 }
 
 function deg2rad(deg: number) {

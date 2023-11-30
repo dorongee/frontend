@@ -4,24 +4,56 @@ import Image from 'next/image';
 import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
 import { useEffect, useState } from 'react';
+import { getUserItems, getUserProfile } from '../../service/user';
+import { UserItem, UserProfile, Village } from '../../types';
+import { getVillageAll } from '../../service/village';
+import { checkVillageDistance } from '../../app/util';
 
-type Props = {
-  items: {
-    name: string;
-    image: string;
-  }[];
-  villages: object[];
-};
-
-export default function VillageContainer({ items, villages }: Props) {
+export default function VillageContainer() {
   const [toggleStart, setToggleStart] = useState(false);
   const toggleImgUrl = toggleStart
     ? '/images/toggle-on.svg'
     : '/images/toggle-off.svg';
-  const userName = '도롱';
 
+  const [userProfile, setUserProfile] = useState<UserProfile>();
+  const [userItems, setUserItems] = useState<UserItem[]>([]);
+  const [villages, setVillages] = useState<Village[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const profile = await getUserProfile(1);
+      const items = await getUserItems(1);
+      console.log(items);
+      setUserProfile(profile);
+      setUserItems(items);
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      const res = await getVillageAll();
+      if (!res) return;
+      navigator.geolocation.getCurrentPosition((position) => {
+        res.forEach((village: any) => {
+          village.distance = checkVillageDistance({
+            my_lat: position.coords.latitude,
+            my_lon: position.coords.longitude,
+            village_lat: Number(village.latitude),
+            village_lon: Number(village.longitude),
+          });
+        });
+        res.sort((a, b) => {
+          if (a.distance < a.radius * 15) return -1;
+          if (b.distance < b.radius * 15) return 1;
+          return a.distance - b.distance;
+        });
+        setVillages(res);
+      });
+    })();
+  }, []);
+
+  useEffect(() => {}, [villages]);
   return (
-    <section className="relative flex flex-col w-full grow bg-dorong-white pb-[65px] min-h-screen">
+    <section className="relative flex flex-col w-full min-h-screen grow bg-dorong-white pb-[65px]">
       <div className="w-full flex justify-center items-center h-[56px] shadow-[0_2px_4px_0px_rgba(0,0,0,0.05)]">
         <h1 className="text-[18px] font-bold leading-[21.6px]">마을</h1>
       </div>
@@ -32,7 +64,7 @@ export default function VillageContainer({ items, villages }: Props) {
             alt="main-map"
             width={80}
             height={377}
-            className="absolute z-10 left-[50%] translate-x-[-50%]"
+            className="absolute z-10 left-[50%] translate-x-[-50%] object-cover w-auto h-auto"
           />
         </div>
         <div className="mb-[13px]">
@@ -41,7 +73,7 @@ export default function VillageContainer({ items, villages }: Props) {
           </h2>
           <h3 className="text-[14px] font-bold leading-[18.2px] flex gap-[5px] items-end">
             <strong className="text-[20px] font-bold leading-[23.6px] text-dorong-primary-dark">
-              {userName}
+              {userProfile?.nickname}
             </strong>
             님
           </h3>
@@ -56,9 +88,21 @@ export default function VillageContainer({ items, villages }: Props) {
 
           <div className="relative w-full h-full overflow-x-auto scrollbar-hide">
             <div className="flex gap-[8px] absolute top-[24px]">
-              {items.map((item, index) => (
-                <UserItemList key={index} item={item} />
-              ))}
+              {Array.from({ length: 13 }, (_, index) => index).map((index) => {
+                if (userItems?.length > index) {
+                  return (
+                    <UserItemList
+                      key={userItems[index]?.item_name}
+                      item={userItems[index]}
+                    />
+                  );
+                }
+                return (
+                  <UserItemList
+                    key={`${userItems[index]?.item_name}-${index}`}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -83,8 +127,13 @@ export default function VillageContainer({ items, villages }: Props) {
         마을 안에 있으면 시작 할 수 있어요!
       </h4>
       <div className="flex flex-col gap-[16px] px-[24px]">
-        {[1, 2, 3, 4, 5].map((_, index) => (
-          <VilligeCard key={index} />
+        {villages.map((village) => (
+          <VilligeCard
+            key={village.village_id}
+            village={village}
+            toggleStart={toggleStart}
+            userProfile={userProfile}
+          />
         ))}
       </div>
     </section>

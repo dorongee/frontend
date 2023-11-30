@@ -3,21 +3,38 @@ export type SelectType = {
   label: string;
 };
 
-export type RegisterUserProfileResponse = {
-  user_data_id: number;
+export interface UserProfile {
   nickname: string;
-  age: number;
-  gender: Gender;
-  created_at: string;
-  updated_at: string;
+  user_data_id: number;
+  completed_villages: number[];
+
   files: {
     file_id: number;
     file_name: string;
     url: string;
     imgur_id: string;
   };
-};
+}
 
+export interface UserItem {
+  item_id: number;
+  item_name: string;
+}
+
+export interface Village {
+  village_id: number;
+  village_name: string;
+  village_description: string;
+  latitude: string;
+  longitude: string;
+  radius: string;
+  distance: number;
+}
+
+export interface Position {
+  latitude: number;
+  longitude: number;
+}
 export type PixelUrls = {
   normal: string;
   cheering: string;

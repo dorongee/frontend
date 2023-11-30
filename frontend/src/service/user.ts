@@ -1,10 +1,10 @@
-import { PixelUrls, RegisterUserProfileResponse } from '../types';
+import { PixelUrls, UserProfile } from '../types';
 
 export async function registerUserProfile(
   nickname: string,
   age: number,
   gender: string
-): Promise<RegisterUserProfileResponse> {
+): Promise<UserProfile> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user`);
 
   const params = { nickname, gender, age: age.toString() };
@@ -13,6 +13,27 @@ export async function registerUserProfile(
   return fetch(url, {
     method: 'POST',
   })
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function getUserProfile(userId: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user/${userId}`,
+    {
+      method: 'GET',
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+export async function getUserItems(userId: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user/${userId}/items`,
+    {
+      method: 'GET',
+    }
+  )
     .then((res) => res.json())
     .catch(console.error);
 }
