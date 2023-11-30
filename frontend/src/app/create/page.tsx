@@ -66,14 +66,13 @@ export default function CreatePage() {
         const normal = registerUserNormalImage(userId, imageFile);
         const cheering = registerUserCheeringImage(userId, imageFile);
         const despair = registerUserDespairImage(userId, imageFile);
-        return Promise.all([normal, cheering, despair]);
-      })
-      .then((res) => {
-        sessionStorage.setItem(CHEERING_IMG_KEY, res[0].url);
-        sessionStorage.setItem(DESPAIR_IMG_KEY, res[1].url);
-        sessionStorage.setItem(NORMAL_IMG_KEY, res[2].url);
-      })
-      .then(() => setCurrentState('complete'));
+        Promise.all([normal, cheering, despair]).then((res) => {
+          sessionStorage.setItem(CHEERING_IMG_KEY, res[0].url);
+          sessionStorage.setItem(DESPAIR_IMG_KEY, res[1].url);
+          sessionStorage.setItem(NORMAL_IMG_KEY, res[2].url);
+          setCurrentState('complete');
+        });
+      });
   };
 
   useEffect(() => {

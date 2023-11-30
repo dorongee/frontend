@@ -88,7 +88,7 @@ export default function VillageContainer() {
         <div className="flex gap-[16px] w-full justify-center pt-[24px]">
           <div className="w-[156px] relative">
             <Image
-              src={sessionStorage.getItem(NORMAL_IMG_KEY)}
+              src={sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''}
               alt="main-map"
               width={80}
               height={377}

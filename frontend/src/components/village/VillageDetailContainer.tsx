@@ -184,8 +184,8 @@ export default function VillageDetailContainer({
                     <Image
                       src={
                         clickedType === 'O'
-                          ? sessionStorage.getItem(CHEERING_IMG_KEY)
-                          : sessionStorage.getItem(DESPAIR_IMG_KEY)
+                          ? sessionStorage.getItem(CHEERING_IMG_KEY) ?? ''
+                          : sessionStorage.getItem(DESPAIR_IMG_KEY) ?? ''
                       }
                       width={176}
                       height={176}

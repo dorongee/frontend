@@ -20,6 +20,9 @@ export async function getMissionsByVillageIdAndUserId(
 export async function completeMission(missionId: number) {
   return fetch(`${SERVER_ADDRESS}/data/mission/${missionId}`, {
     method: 'PUT',
+    body: JSON.stringify({
+      is_complete: true,
+    }),
   })
     .then((res) => res.json())
     .catch(console.error);
