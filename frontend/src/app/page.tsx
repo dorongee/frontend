@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 export default function HomePage() {
   const router = useRouter();
+  console.log(1);
   return (
     <section className="relative flex flex-col h-full">
       <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[184px]" />

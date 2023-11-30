@@ -3,11 +3,12 @@
 import Image from 'next/image';
 import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getUserItems, getUserProfile } from '../../service/user';
 import { UserItem, UserProfile, Village } from '../../types';
 import { getVillageAll } from '../../service/village';
 import { checkVillageDistance } from '../../app/util';
+import { PositionContext } from '../../app/layout';
 
 export default function VillageContainer() {
   const [toggleStart, setToggleStart] = useState(false);
@@ -19,39 +20,39 @@ export default function VillageContainer() {
   const [userItems, setUserItems] = useState<UserItem[]>([]);
   const [villages, setVillages] = useState<Village[]>([]);
 
+  const pos = useContext(PositionContext);
   useEffect(() => {
     (async () => {
-      const profile = await getUserProfile(1);
-      const items = await getUserItems(1);
-      console.log(items);
-      setUserProfile(profile);
-      setUserItems(items);
+      const profile = getUserProfile(1);
+      const items = getUserItems(1);
+      Promise.all([profile, items]).then((res) => {
+        setUserProfile(res[0]);
+        setUserItems(res[1]);
+      });
     })();
   }, []);
   useEffect(() => {
     (async () => {
       const res = await getVillageAll();
       if (!res) return;
-      navigator.geolocation.getCurrentPosition((position) => {
-        res.forEach((village: any) => {
-          village.distance = checkVillageDistance({
-            my_lat: position.coords.latitude,
-            my_lon: position.coords.longitude,
-            village_lat: Number(village.latitude),
-            village_lon: Number(village.longitude),
-          });
+
+      res.forEach((village: any) => {
+        village.distance = checkVillageDistance({
+          my_lat: pos.latitude,
+          my_lon: pos.longitude,
+          village_lat: Number(village.latitude),
+          village_lon: Number(village.longitude),
         });
-        res.sort((a, b) => {
-          if (a.distance < a.radius * 15) return -1;
-          if (b.distance < b.radius * 15) return 1;
-          return a.distance - b.distance;
-        });
-        setVillages(res);
       });
+      res.sort((a, b) => {
+        if (a.distance < a.radius * 15) return -1;
+        if (b.distance < b.radius * 15) return 1;
+        return a.distance - b.distance;
+      });
+      setVillages(res);
     })();
   }, []);
 
-  useEffect(() => {}, [villages]);
   return (
     <section className="relative flex flex-col w-full min-h-screen grow bg-dorong-white pb-[65px]">
       <div className="w-full flex justify-center items-center h-[56px] shadow-[0_2px_4px_0px_rgba(0,0,0,0.05)]">
