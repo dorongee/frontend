@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import Button from './Button';
+import StartButton from './StartButton';
 
 function VilligeCard() {
   return (
     <div className="flex px-[12px] justify-between gap-4 items-center h-[70px] bg-dorong-white rounded-[10px] shadow-[0_2px_10px_0px_rgba(0,0,0,0.07)]">
-      <div className="flex gap-[16px] w-full">
+      <div className="flex gap-[16px]">
         <Image
           src="/images/villige.png"
           alt="arrow-left"
@@ -20,14 +20,7 @@ function VilligeCard() {
           </p>
         </div>
       </div>
-      <div className=" w-[74px] py-[16px]">
-        <Button
-          isAvailable={true}
-          className="flex items-center justify-center p-[8px]"
-        >
-          START
-        </Button>
-      </div>
+      <StartButton type="check" />
     </div>
   );
 }
