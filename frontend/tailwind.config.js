@@ -58,6 +58,11 @@ module.exports = {
           7: 'var(--dorong-gray-7)',
           8: 'var(--dorong-gray-8)',
         },
+
+        orange: {
+          main: 'var(--dorong-orange)',
+          light: 'var(--dorong-orange-light)',
+        },
       },
     },
   },

@@ -26,6 +26,9 @@
 
   --dorong-error: #f30b0b;
   --dorong-positive: #009b07;
+
+  --dorong-orange:rgba(243, 11, 11, 0.5);
+  --dorong-orange-light:#FFE8E8;
 }
 
 @media (prefers-color-scheme: dark) {
