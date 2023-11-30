@@ -1,16 +1,16 @@
-interface ButtonProps {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   isAvailable: boolean;
 }
 
-function Button({ isAvailable }: ButtonProps) {
-  const bgTextColor = !isAvailable
+function Button({ isAvailable, children, className }: ButtonProps) {
+  const bgTextColor = isAvailable
     ? 'bg-dorong-primary-main'
     : 'bg-dorong-gray-0';
   return (
     <button
-      className={`flex items-center justify-center w-full h-12 rounded-md ${bgTextColor} text-dorong-white`}
+      className={`flex items-center justify-center w-full h-12 rounded-md ${bgTextColor} text-dorong-white ${className}`}
     >
-      버튼 입니다.
+      {children}
     </button>
   );
 }
