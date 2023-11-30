@@ -1,4 +1,5 @@
 import VillageContainer from '../../components/village/VillageContainer';
+import { getUserProfile } from '../../service/user';
 
 const MOCK_ITEMS = [
   { name: '한라봉', image: '/images/item-0.png' },

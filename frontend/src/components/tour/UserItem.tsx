@@ -1,14 +1,10 @@
 import Image from 'next/image';
 import Button from '../Button';
 import { useState } from 'react';
-
-interface Item {
-  name: string;
-  image: string;
-}
+import { UserItem } from '../../types';
 
 interface UserItemListProps {
-  item?: Item;
+  item?: UserItem;
 }
 function UserItemList({ item }: UserItemListProps) {
   return (
@@ -16,7 +12,7 @@ function UserItemList({ item }: UserItemListProps) {
       <div className="w-[60px] h-[60px] rounded-[4px] bg-[#FBF4FF]">
         {item && (
           <Image
-            src={item ? item.image : ''}
+            src={item ? `/images/item-${item.item_id}.png` : ''}
             alt="item"
             width={60}
             height={60}
@@ -26,7 +22,7 @@ function UserItemList({ item }: UserItemListProps) {
       </div>
       {item && (
         <label className="text-dorong-primary-dark text-[12px] font-medium leading-[14.16px]">
-          {item.name}
+          {item.item_name}
         </label>
       )}
     </div>

@@ -4,6 +4,8 @@ import Image from 'next/image';
 import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
 import { useEffect, useState } from 'react';
+import { getUserItems, getUserProfile } from '../../service/user';
+import { UserItem, UserProfile } from '../../types';
 
 type Props = {
   items: {
@@ -19,6 +21,17 @@ export default function VillageContainer({ items, villages }: Props) {
     ? '/images/toggle-on.svg'
     : '/images/toggle-off.svg';
   const userName = '도롱';
+  const [userProfile, setUserProfile] = useState<UserProfile>();
+  const [userItems, setUserItems] = useState<UserItem[]>([]);
+  useEffect(() => {
+    (async () => {
+      const profile = await getUserProfile(1);
+      const items = await getUserItems(1);
+      console.log(items);
+      setUserProfile(profile);
+      setUserItems(items);
+    })();
+  }, []);
 
   return (
     <section className="relative flex flex-col w-full grow bg-dorong-white pb-[65px] min-h-screen">
@@ -41,7 +54,7 @@ export default function VillageContainer({ items, villages }: Props) {
           </h2>
           <h3 className="text-[14px] font-bold leading-[18.2px] flex gap-[5px] items-end">
             <strong className="text-[20px] font-bold leading-[23.6px] text-dorong-primary-dark">
-              {userName}
+              {userProfile?.nickname}
             </strong>
             님
           </h3>
@@ -56,9 +69,12 @@ export default function VillageContainer({ items, villages }: Props) {
 
           <div className="relative w-full h-full overflow-x-auto scrollbar-hide">
             <div className="flex gap-[8px] absolute top-[24px]">
-              {items.map((item, index) => (
-                <UserItemList key={index} item={item} />
-              ))}
+              {Array.from({ length: 13 }, (_, index) => index).map((index) => {
+                if (userItems?.length <= index) {
+                  return <UserItemList key={index} item={userItems[index]} />;
+                }
+                return <UserItemList key={index} />;
+              })}
             </div>
           </div>
         </div>
