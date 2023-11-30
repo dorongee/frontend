@@ -91,6 +91,7 @@ export default function VillageDetailContainer({
       village_lat: Number(village.latitude),
       village_lon: Number(village.longitude),
     });
+    console.log(distance <= Number(village.radius) * 15);
     setIsClosed(distance <= Number(village.radius) * 15);
   }, [village]);
 
@@ -101,7 +102,6 @@ export default function VillageDetailContainer({
       }, 2000);
     }
   }, [step]);
-
   return (
     <section>
       {
@@ -149,7 +149,7 @@ export default function VillageDetailContainer({
                 성공해도 미션 클리어!
               </p>
               <ul className="flex flex-col gap-4 mt-7">
-                {missions.map((mission) => (
+                {missions?.map((mission) => (
                   <MissionItem
                     mission={mission}
                     key={mission.user_mission_id}
