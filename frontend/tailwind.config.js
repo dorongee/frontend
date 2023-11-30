@@ -26,6 +26,7 @@ module.exports = {
         },
 
         gray: {
+          0: 'var(--dorong-gray-0)',
           1: 'var(--dorong-gray-1)',
           2: 'var(--dorong-gray-2)',
           3: 'var(--dorong-gray-3)',
