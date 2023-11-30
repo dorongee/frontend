@@ -101,3 +101,7 @@ export const AGE_OPTIONS: SelectType[] = [
   { value: 98, label: '98' },
   { value: 99, label: '99' },
 ];
+
+export const CHEERING_IMG_KEY = 'cheeringImg';
+export const DESPAIR_IMG_KEY = 'despairImg';
+export const NORMAL_IMG_KEY = 'normalImg';

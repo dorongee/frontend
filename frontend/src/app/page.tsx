@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 import Button from '../components/Button';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
+export default function HomePage() {
   // useEffect(() => {
   //   if ('geolocation' in navigator) {
   //     navigator.geolocation.getCurrentPosition((position) => {
@@ -15,6 +15,8 @@ export default function Home() {
   //     console.log('위치정보 사용 불가능');
   //   }
   // });
+
+  const router = useRouter();
   return (
     <section className="relative flex flex-col h-full">
       <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[184px]" />
@@ -27,14 +29,13 @@ export default function Home() {
           className="z-10"
         />
         <div className="w-full px-6 h-[48px]">
-          <Link href="./create">
-            <Button
-              isAvailable={true}
-              className="text-[20px] font-medium leading-[23.6px]"
-            >
-              여행을 시작할까요?
-            </Button>
-          </Link>
+          <Button
+            isAvailable={true}
+            onClick={() => router.push('/create')}
+            className="text-[20px] font-medium leading-[23.6px]"
+          >
+            여행을 시작할까요?
+          </Button>
         </div>
       </div>
     </section>
