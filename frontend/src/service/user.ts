@@ -1,3 +1,4 @@
+import { SERVER_ADDRESS } from '../constants';
 import { PixelUrls, UserProfile } from '../types';
 
 export async function registerUserProfile(
@@ -5,7 +6,7 @@ export async function registerUserProfile(
   age: number,
   gender: string
 ): Promise<UserProfile> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user`);
+  const url = new URL(`${SERVER_ADDRESS}/data/user`);
 
   const params = { nickname, gender, age: age.toString() };
   url.search = new URLSearchParams(params).toString();
@@ -18,22 +19,16 @@ export async function registerUserProfile(
 }
 
 export async function getUserProfile(userId: number) {
-  return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user/${userId}`,
-    {
-      method: 'GET',
-    }
-  )
+  return fetch(`${SERVER_ADDRESS}/data/user/${userId}`, {
+    method: 'GET',
+  })
     .then((res) => res.json())
     .catch(console.error);
 }
 export async function getUserItems(userId: number) {
-  return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user/${userId}/items`,
-    {
-      method: 'GET',
-    }
-  )
+  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/items`, {
+    method: 'GET',
+  })
     .then((res) => res.json())
     .catch(console.error);
 }
@@ -45,13 +40,10 @@ export async function registerUserImage(
   const formdata = new FormData();
   formdata.append('photo', imageFile);
 
-  return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/user/${userId}/pixel`,
-    {
-      method: 'POST',
-      body: formdata,
-    }
-  )
+  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/pixel`, {
+    method: 'POST',
+    body: formdata,
+  })
     .then((res) => res.json())
     .catch(console.error);
 }
