@@ -9,6 +9,7 @@ function Button({ isAvailable, children, className, onClick }: ButtonProps) {
   return (
     <button
       className={`flex items-center justify-center w-full h-full rounded-md ${bgTextColor} text-dorong-white ${className}`}
+      onClick={onClick}
     >
       {children}
     </button>
