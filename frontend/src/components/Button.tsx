@@ -8,8 +8,7 @@ function Button({ isAvailable, children, className, onClick }: ButtonProps) {
     : 'bg-dorong-gray-0';
   return (
     <button
-      className={`flex items-center justify-center w-full h-12 rounded-md ${bgTextColor} text-dorong-white ${className}`}
-      onClick={onClick}
+      className={`flex items-center justify-center w-full h-full rounded-md ${bgTextColor} text-dorong-white ${className}`}
     >
       {children}
     </button>
