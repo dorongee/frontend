@@ -22,7 +22,7 @@ module.exports = {
         },
       },
       animation: {
-        progress: 'progress 10s ease-in-out',
+        progress: 'progress 10s linear',
       },
     },
     colors: {
