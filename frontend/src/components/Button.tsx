@@ -8,7 +8,7 @@ function Button({ isAvailable, children, className }: ButtonProps) {
     : 'bg-dorong-gray-0';
   return (
     <button
-      className={`flex items-center justify-center w-full h-12 rounded-md ${bgTextColor} text-dorong-white ${className}`}
+      className={`flex items-center justify-center w-full rounded-md ${bgTextColor} text-dorong-white ${className}`}
     >
       {children}
     </button>
