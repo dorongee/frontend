@@ -14,13 +14,16 @@ import {
   AGE_OPTIONS,
   CHEERING_IMG_KEY,
   DESPAIR_IMG_KEY,
+  MAX_IMAGE_BYTE,
   NORMAL_IMG_KEY,
+  USER_ID_KEY,
 } from '../../constants';
 import Button from '../../components/Button';
 import { Gender, SelectType } from '../../types';
 import { registerUserImage, registerUserProfile } from '../../service/user';
 import Loading from '../../components/create/loading';
 import Complete from '../../components/create/complete';
+import { notifyToast } from '../../service/notify';
 
 export default function CreatePage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -38,13 +41,11 @@ export default function CreatePage() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];
-      // if (file.size > MAX_IMAGE_BYTE) {
-      //   notifyToast(
-      //     '최대 썸네일 이미지 사이즈 10MB를 초과하였습니다.',
-      //     'error'
-      //   );
-      //   return;
-      // }
+      if (file.size > MAX_IMAGE_BYTE) {
+        console.log('최대  이미지 사이즈 5MB를 초과하였습니다.');
+        notifyToast('최대  이미지 사이즈 10MB를 초과하였습니다.', 'error');
+        return;
+      }
       const url = window.URL.createObjectURL(file);
       setImageFile(file);
       setImageUrl(url);
@@ -55,7 +56,10 @@ export default function CreatePage() {
     setCurrentState('loading');
     registerUserProfile(nickname, age.value, gender)
       .then((res) => res.user_data_id)
-      .then((userId) => registerUserImage(userId, imageFile))
+      .then((userId) => {
+        sessionStorage.setItem(USER_ID_KEY, userId.toString());
+        return registerUserImage(userId, imageFile);
+      })
       .then((res) => {
         sessionStorage.setItem(CHEERING_IMG_KEY, res.cheering);
         sessionStorage.setItem(DESPAIR_IMG_KEY, res.in_despair);

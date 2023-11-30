@@ -105,3 +105,6 @@ export const AGE_OPTIONS: SelectType[] = [
 export const CHEERING_IMG_KEY = 'cheeringImg';
 export const DESPAIR_IMG_KEY = 'despairImg';
 export const NORMAL_IMG_KEY = 'normalImg';
+export const USER_ID_KEY = 'userId';
+
+export const MAX_IMAGE_BYTE = 5242880;
