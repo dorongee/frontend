@@ -24,8 +24,8 @@
   --dorong-gray-7:#66666F;
   --dorong-gray-8:#46464B;
 
-  --dorong-error:#F30B0B;
-  --dorong-positive:#009B07;
+  --dorong-error: #f30b0b;
+  --dorong-positive: #009b07;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,4 +36,5 @@
   }
 }
 
-body {}
+body {
+}
