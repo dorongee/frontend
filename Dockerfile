@@ -43,6 +43,8 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
+ENV HTTP_PROXY="http://krmp-proxy.9rum.cc:3128"
+ENV HTTPS_PROXY="http://krmp-proxy.9rum.cc:3128"
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
