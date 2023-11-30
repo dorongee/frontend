@@ -108,3 +108,5 @@ export const NORMAL_IMG_KEY = 'normalImg';
 export const USER_ID_KEY = 'userId';
 
 export const MAX_IMAGE_BYTE = 5242880;
+
+export const SERVER_ADDRESS = 'https://ka64fcf1bc368a.user-app.krampoline.com';

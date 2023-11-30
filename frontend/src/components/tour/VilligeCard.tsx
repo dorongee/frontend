@@ -43,7 +43,12 @@ function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
           </p>
         </div>
       </div>
-      <Link href={`village/${village.village_id}`}>
+      <Link
+        href={{
+          pathname: `village/${village.village_id}`,
+          query: { name: village.village_name },
+        }}
+      >
         <StartButton type={villageType} />
       </Link>
     </div>

@@ -21,6 +21,7 @@ export default function VillageContainer() {
   const [villages, setVillages] = useState<Village[]>([]);
 
   const pos = useContext(PositionContext);
+
   useEffect(() => {
     (async () => {
       const profile = getUserProfile(1);
@@ -35,21 +36,41 @@ export default function VillageContainer() {
     (async () => {
       const res = await getVillageAll();
       if (!res) return;
+      if (!pos || pos.latitude === 0) {
+        console.log(pos);
 
-      res.forEach((village: any) => {
-        village.distance = checkVillageDistance({
-          my_lat: pos.latitude,
-          my_lon: pos.longitude,
-          village_lat: Number(village.latitude),
-          village_lon: Number(village.longitude),
+        navigator.geolocation.getCurrentPosition((position) => {
+          res.forEach((village: any) => {
+            village.distance = checkVillageDistance({
+              my_lat: position.coords.latitude,
+              my_lon: position.coords.longitude,
+              village_lat: Number(village.latitude),
+              village_lon: Number(village.longitude),
+            });
+          });
+          res.sort((a, b) => {
+            if (a.distance < a.radius * 15) return -1;
+            if (b.distance < b.radius * 15) return 1;
+            return a.distance - b.distance;
+          });
+          setVillages(res);
         });
-      });
-      res.sort((a, b) => {
-        if (a.distance < a.radius * 15) return -1;
-        if (b.distance < b.radius * 15) return 1;
-        return a.distance - b.distance;
-      });
-      setVillages(res);
+      } else {
+        res.forEach((village: any) => {
+          village.distance = checkVillageDistance({
+            my_lat: pos.latitude,
+            my_lon: pos.longitude,
+            village_lat: Number(village.latitude),
+            village_lon: Number(village.longitude),
+          });
+        });
+        res.sort((a, b) => {
+          if (a.distance < a.radius * 15) return -1;
+          if (b.distance < b.radius * 15) return 1;
+          return a.distance - b.distance;
+        });
+        setVillages(res);
+      }
     })();
   }, []);
 

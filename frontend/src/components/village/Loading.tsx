@@ -1,24 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-import { UserProfile, Village } from '../../types';
 
 interface LoadingPageProps {
-  village: Village;
-  userProfile: UserProfile;
+  villageName: string;
 }
-export default function LoadingPage({
-  village,
-  userProfile,
-}: LoadingPageProps) {
-  const villigeName = '하효';
+export default function Loading({ villageName }: LoadingPageProps) {
   return (
-    <section className="flex flex-col w-full py-[60px] h-screen justify-between bg-[#fff]">
+    <section className="flex flex-col w-full py-[60px] h-screen justify-between bg-[#fff] overflow-hidden">
       <div className="h-[100px]">
         <div className="flex animate-loading">
           {Array.from({ length: 13 }, (_, i) => (
             <Image
-              src={`/images/item-${i}.png`}
+              src={`/images/Item-dark-${i}.png`}
               alt="item"
               width={100}
               height={100}
@@ -30,8 +24,7 @@ export default function LoadingPage({
       <div>
         <p className="text-dorong-gray-7 text-[28px] font-medium leading-[33.6px]">
           <strong className="text-dorong-primary-main font-extrabold leading-[33.6px]">
-            {/* {village.village_name} */}
-            '하효'
+            {villageName}
           </strong>
           로 가는중...
         </p>
@@ -51,7 +44,7 @@ export default function LoadingPage({
         <div className="flex animate-loading">
           {Array.from({ length: 13 }, (_, i) => (
             <Image
-              src={`/images/item-${12 - i}.png`}
+              src={`/images/Item-dark-${12 - i}.png`}
               alt="item"
               width={100}
               height={100}
