@@ -13,6 +13,30 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
+    colors: {
+      dorong: {
+        black: 'var(--dorong-black)',
+        error: 'var(--dorong-error)',
+        positive: 'var(--dorong-positive)',
+
+        primary: {
+          dark: 'var(--dorong-primary-dark)',
+          main: 'var(--dorong-primary)',
+          light: 'var(--dorong-primary-light)',
+        },
+
+        gray: {
+          1: 'var(--dorong-gray-1)',
+          2: 'var(--dorong-gray-2)',
+          3: 'var(--dorong-gray-3)',
+          4: 'var(--dorong-gray-4)',
+          5: 'var(--dorong-gray-5)',
+          6: 'var(--dorong-gray-6)',
+          7: 'var(--dorong-gray-7)',
+          8: 'var(--dorong-gray-8)',
+        },
+      },
+    },
   },
   plugins: [],
-}
+};
