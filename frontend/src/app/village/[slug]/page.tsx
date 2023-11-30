@@ -7,34 +7,41 @@ import { getMissionsByVillageIdAndUserId } from '../../../service/village';
 import { useEffect, useState } from 'react';
 import { USER_ID_KEY } from '../../../constants';
 import { Mission } from '../../../types';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Loading from '../../../components/village/Loading';
 
 type Props = {
   params: {
     slug: string;
+    query: string;
   };
 };
 
-export default function VillageDetailPage({ params: { slug } }: Props) {
+export default function VillageDetailPage({ params: test }: Props) {
+  const [isLoading, setIsLoading] = useState(true);
   const [missions, setMissions] = useState<Mission[]>([]);
   const [missionUpdate, setMissionUpdate] = useState<boolean>(false);
+  const villageId = Number(test.slug);
   const router = useRouter();
+  const villageName = useSearchParams().get('name');
 
   useEffect(() => {
-    const villageId = Number(slug);
     const userId = Number(sessionStorage.getItem(USER_ID_KEY));
-    getMissionsByVillageIdAndUserId(villageId, userId).then((res) =>
-      setMissions(res)
-    );
+    getMissionsByVillageIdAndUserId(villageId, userId).then((res) => {
+      setMissions(res);
+      setIsLoading(false);
+    });
   }, [missionUpdate]);
 
-  return (
+  return isLoading ? (
+    <Loading villageName={villageName} villageId={villageId} />
+  ) : (
     <section className="relative min-h-screen grow bg-dorong-white">
       <div className="flex py-[17px] items-center justify-between px-3">
         <button onClick={() => router.back()}>
           <Image src={arrowLeft} alt="arrowLeft" />
         </button>
-        <h2 className="text-lg font-bold">하효마을</h2>
+        <h2 className="text-lg font-bold">{villageName}</h2>
         <div className="w-[24px]"></div>
       </div>
       <VillageDetailContainer
