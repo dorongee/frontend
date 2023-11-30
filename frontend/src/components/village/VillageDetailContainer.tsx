@@ -91,7 +91,6 @@ export default function VillageDetailContainer({
       village_lat: Number(village.latitude),
       village_lon: Number(village.longitude),
     });
-    console.log(village);
     setIsClosed(distance <= Number(village.radius) * 15);
   }, [village]);
 
