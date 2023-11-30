@@ -25,3 +25,9 @@ export type PixelUrls = {
 };
 
 export type Gender = 'male' | 'female';
+
+export type Mission = {
+  user_mission_id: number;
+  mission_details: string;
+  is_complete: boolean;
+};
