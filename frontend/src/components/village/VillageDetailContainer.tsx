@@ -6,6 +6,8 @@ import Button from '../Button';
 import { useState } from 'react';
 import { Mission } from '../../types';
 import MissionItem from './MissionItem';
+import exampleImg from 'public/images/example.png';
+import { useRouter } from 'next/navigation';
 
 const dummy = [
   '먹태깡 맛있게 먹기',
@@ -27,6 +29,10 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
   const OImgUrl = clickedType === 'O' ? '/images/O-blue.svg' : '/images/O.svg';
   const XImgUrl = clickedType === 'X' ? '/images/X-red.svg' : '/images/X.svg';
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const router = useRouter();
+
   const dummy = [
     {
       user_mission_id: 1,
@@ -41,7 +47,7 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
     {
       user_mission_id: 3,
       mission_details: '먹태깡 먹기',
-      is_complete: false,
+      is_complete: true,
     },
     {
       user_mission_id: 4,
@@ -54,6 +60,11 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
       is_complete: true,
     },
   ];
+
+  const handleSuccessClick = () => {
+    setModalOpen(true);
+  };
+
   return (
     <section>
       {
@@ -117,7 +128,7 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
             </div>
           ),
           3: (
-            <section className="relative flex flex-col items-center w-full">
+            <section className="flex flex-col items-center w-full ">
               <div className="flex gap-2 mt-2">
                 <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
                 <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
@@ -142,6 +153,60 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
                   <Image src={XImgUrl} alt="X" width={120} height={120} />
                 </button>
               </div>
+              <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
+                <Button
+                  isAvailable={clickedType !== '-'}
+                  onClick={handleSuccessClick}
+                >
+                  완료하기
+                </Button>
+              </div>
+              {modalOpen && (
+                <div className="fixed top-0">
+                  <div
+                    className="w-screen h-screen opacity-50 bg-dorong-black"
+                    onClick={() => setModalOpen(false)}
+                  ></div>
+                  <div className="absolute flex flex-col items-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-dorong-white w-[327px] h-[410px] py-8 px-5 rounded-xl">
+                    <p className="text-2xl font-bold text-dorong-primary-dark rounded-2xl">
+                      {clickedType === 'O' ? '성공!' : '다시 시도해볼까요?'}
+                    </p>
+                    <Image
+                      src={exampleImg}
+                      width={176}
+                      height={176}
+                      alt="example"
+                      className="my-[50px]"
+                    />
+                    {clickedType === 'O' ? (
+                      <button className="flex justify-around w-full py-2 rounded-xl bg-dorong-primary-lightlight">
+                        아이템 받으러 가기
+                      </button>
+                    ) : (
+                      <div className="flex justify-around w-full">
+                        <button
+                          className="px-2 text-lg border-2 text-dorong-black rounded-xl border-dorong-primary-light"
+                          onClick={() => {
+                            setModalOpen(false);
+                            router.push('/village');
+                          }}
+                        >
+                          그만할게요 😭
+                        </button>
+                        <button
+                          className="px-2 text-lg border-2 text-dorong-black rounded-xl border-dorong-primary-light"
+                          onClick={() => {
+                            setModalOpen(false);
+                            setStep(3);
+                          }}
+                        >
+                          다시 시도하기 🔥
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </section>
           ),
         }[step]
