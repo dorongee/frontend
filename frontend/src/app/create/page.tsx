@@ -10,10 +10,15 @@ import {
 } from 'react';
 import folderImage from 'public/images/folder.svg';
 import Select from 'react-select';
-import { AGE_OPTIONS } from '../../constants';
+import {
+  AGE_OPTIONS,
+  CHEERING_IMG_KEY,
+  DESPAIR_IMG_KEY,
+  NORMAL_IMG_KEY,
+} from '../../constants';
 import Button from '../../components/Button';
-import { SelectType } from '../../types';
-import { registerUserProfile } from '../../service/user';
+import { Gender, SelectType } from '../../types';
+import { registerUserImage, registerUserProfile } from '../../service/user';
 import Loading from '../../components/create/loading';
 import Complete from '../../components/create/complete';
 
@@ -22,7 +27,7 @@ export default function CreatePage() {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [age, setAge] = useState<SelectType>({ value: 20, label: '20' });
-  const [gender, setGender] = useState<'man' | 'woman' | null>(null);
+  const [gender, setGender] = useState<Gender | null>(null);
   const [buttonActive, setButtonActive] = useState(false);
   const [currentState, setCurrentState] = useState<
     'create' | 'loading' | 'complete'
@@ -48,9 +53,15 @@ export default function CreatePage() {
 
   const handleClick = () => {
     setCurrentState('loading');
-    registerUserProfile(nickname, age.value, gender).then(() => {
-      setCurrentState('complete');
-    });
+    registerUserProfile(nickname, age.value, gender)
+      .then((res) => res.user_data_id)
+      .then((userId) => registerUserImage(userId, imageFile))
+      .then((res) => {
+        sessionStorage.setItem(CHEERING_IMG_KEY, res.cheering);
+        sessionStorage.setItem(DESPAIR_IMG_KEY, res.in_despair);
+        sessionStorage.setItem(NORMAL_IMG_KEY, res.normal);
+      })
+      .then(() => setCurrentState('complete'));
   };
 
   useEffect(() => {
@@ -147,21 +158,21 @@ export default function CreatePage() {
                   <div className="flex w-[160px] justify-between">
                     <button
                       className={`py-[9px] px-[21px] ${
-                        gender === 'man'
+                        gender === 'male'
                           ? 'text-dorong-white bg-dorong-primary-main'
                           : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight'
                       }  rounded-lg`}
-                      onClick={() => setGender('man')}
+                      onClick={() => setGender('male')}
                     >
                       남자
                     </button>
                     <button
                       className={`py-[9px] px-[21px] ${
-                        gender === 'woman'
+                        gender === 'female'
                           ? 'text-dorong-white bg-dorong-primary-main'
                           : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight'
                       } rounded-lg`}
-                      onClick={() => setGender('woman')}
+                      onClick={() => setGender('female')}
                     >
                       여자
                     </button>
@@ -176,7 +187,7 @@ export default function CreatePage() {
             </section>
           ),
           loading: <Loading />,
-          complete: <Complete />,
+          complete: <Complete nickname={nickname} />,
         }[currentState]
       }
     </section>
