@@ -168,7 +168,7 @@ export default function CreatePage() {
                   </div>
                 </div>
               </div>
-              <div className="absolute w-full px-6 bottom-12">
+              <div className="absolute w-full px-6 bottom-12 h-[48px]">
                 <Button isAvailable={buttonActive} onClick={handleClick}>
                   생성하기
                 </Button>

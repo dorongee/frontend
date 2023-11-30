@@ -26,7 +26,7 @@ export default function Home() {
           height={412}
           className="z-10"
         />
-        <div className="w-full px-6">
+        <div className="w-full px-6 h-[48px]">
           <Link href="./create">
             <Button
               isAvailable={true}
