@@ -94,6 +94,15 @@ export default function VillageDetailContainer({
     console.log(village);
     setIsClosed(distance <= Number(village.radius) * 15);
   }, [village]);
+
+  useEffect(() => {
+    if (step === 4) {
+      setTimeout(() => {
+        router.push('/village');
+      }, 2000);
+    }
+  }, [step]);
+
   return (
     <section>
       {
@@ -189,10 +198,7 @@ export default function VillageDetailContainer({
               </div>
               {modalOpen && (
                 <div className="fixed top-0">
-                  <div
-                    className="w-screen h-screen opacity-50 bg-dorong-black"
-                    onClick={() => setModalOpen(false)}
-                  ></div>
+                  <div className="w-screen h-screen opacity-50 bg-dorong-black"></div>
                   <div className="absolute flex flex-col items-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-dorong-white w-[327px] h-[410px] py-8 px-5 rounded-xl">
                     <p className="text-2xl font-bold text-dorong-primary-dark rounded-2xl">
                       {clickedType === 'O' ? '성공!' : '다시 시도해볼까요?'}
@@ -205,7 +211,10 @@ export default function VillageDetailContainer({
                       className="my-[50px]"
                     />
                     {clickedType === 'O' ? (
-                      <button className="flex justify-around w-full py-2 rounded-xl bg-dorong-primary-lightlight">
+                      <button
+                        className="flex justify-around w-full py-2 rounded-xl bg-dorong-primary-lightlight"
+                        onClick={() => setStep(4)}
+                      >
                         아이템 받으러 가기
                       </button>
                     ) : (
@@ -233,6 +242,31 @@ export default function VillageDetailContainer({
                   </div>
                 </div>
               )}
+            </section>
+          ),
+          4: (
+            <section className="flex flex-col w-full pt-[140px] items-center relative h-screen bg-[#fff]">
+              <h1 className="text-dorong-gray-7 text-[24px] font-bold leading-[28.32px] mb-[2px]">
+                '
+                <strong className="text-dorong-black text-[24px] font-extrabold leading-[28.32px]">
+                  {village?.village_name}
+                </strong>
+                ' 마을 생산품
+              </h1>
+              <span className=" text-[40px] font-extrabold leading-[48px] inline-block text-dorong-primary-dark mb-[16px]">
+                한라봉
+              </span>
+              <Image
+                src="/images/item-7.png"
+                alt="item"
+                width={230}
+                height={230}
+                className="z-10"
+              />
+              <p className="text-dorong-gray-7 text-[20px] font-bold leading-[23.6px] mt-[31px] z-10">
+                나의 아이템에 등록되었습니다.
+              </p>
+              <div className="absolute bottom-0 w-full h-2/3 bg-gradient-to-b from-dorong-white to-dorong-primary-light" />
             </section>
           ),
         }[step]
