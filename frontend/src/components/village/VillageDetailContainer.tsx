@@ -3,12 +3,14 @@
 import Image from 'next/image';
 import villageExample from '/public/images/village-detail-example.png';
 import Button from '../Button';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Mission, Village } from '../../types';
 import MissionItem from './MissionItem';
 import exampleImg from 'public/images/example.png';
 import { useRouter } from 'next/navigation';
 import { getVillage } from '../../service/village';
+import { PositionContext } from '../../app/layout';
+import { checkVillageDistance } from '../../app/util';
 
 const dummy = [
   '먹태깡 맛있게 먹기',
@@ -37,9 +39,10 @@ export default function VillageDetailContainer({
 
   const [modalOpen, setModalOpen] = useState(false);
   const [village, setVillage] = useState<Village>();
+  const [isClosed, setIsClosed] = useState(false);
 
   const router = useRouter();
-
+  const pos = useContext(PositionContext);
   const dummy = [
     {
       user_mission_id: 1,
@@ -76,9 +79,21 @@ export default function VillageDetailContainer({
     (async () => {
       const res = await getVillage(villageId);
       setVillage(res);
-      console.log(res);
     })();
   }, []);
+
+  useEffect(() => {
+    if (!village) return;
+
+    const distance = checkVillageDistance({
+      my_lat: pos.latitude,
+      my_lon: pos.longitude,
+      village_lat: Number(village.latitude),
+      village_lon: Number(village.longitude),
+    });
+    console.log(village);
+    setIsClosed(distance <= Number(village.radius) * 15);
+  }, [village]);
   return (
     <section>
       {
@@ -98,10 +113,7 @@ export default function VillageDetailContainer({
                 </div>
               </div>
               <p className="mt-[52px] mx-5 text-sm text-dorong-gray-7">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Dolores, dolore, nihil optio aliquam ipsum quidem debitis at
-                consequuntur unde, deserunt laudantium mollitia eligendi esse
-                dolorem possimus quis fugiat rem velit.
+                {village?.village_description}
               </p>
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
                 <Button isAvailable={true} onClick={() => setStep(2)}>

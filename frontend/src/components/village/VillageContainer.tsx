@@ -36,7 +36,9 @@ export default function VillageContainer() {
     (async () => {
       const res = await getVillageAll();
       if (!res) return;
-      if (!pos) {
+      if (!pos || pos.latitude === 0) {
+        console.log(pos);
+
         navigator.geolocation.getCurrentPosition((position) => {
           res.forEach((village: any) => {
             village.distance = checkVillageDistance({
@@ -46,23 +48,29 @@ export default function VillageContainer() {
               village_lon: Number(village.longitude),
             });
           });
+          res.sort((a, b) => {
+            if (a.distance < a.radius * 15) return -1;
+            if (b.distance < b.radius * 15) return 1;
+            return a.distance - b.distance;
+          });
+          setVillages(res);
         });
+      } else {
+        res.forEach((village: any) => {
+          village.distance = checkVillageDistance({
+            my_lat: pos.latitude,
+            my_lon: pos.longitude,
+            village_lat: Number(village.latitude),
+            village_lon: Number(village.longitude),
+          });
+        });
+        res.sort((a, b) => {
+          if (a.distance < a.radius * 15) return -1;
+          if (b.distance < b.radius * 15) return 1;
+          return a.distance - b.distance;
+        });
+        setVillages(res);
       }
-
-      res.forEach((village: any) => {
-        village.distance = checkVillageDistance({
-          my_lat: pos.latitude,
-          my_lon: pos.longitude,
-          village_lat: Number(village.latitude),
-          village_lon: Number(village.longitude),
-        });
-      });
-      res.sort((a, b) => {
-        if (a.distance < a.radius * 15) return -1;
-        if (b.distance < b.radius * 15) return 1;
-        return a.distance - b.distance;
-      });
-      setVillages(res);
     })();
   }, []);
 

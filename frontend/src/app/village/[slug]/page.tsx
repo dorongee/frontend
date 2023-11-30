@@ -33,7 +33,7 @@ export default function VillageDetailPage({ params: { slug } }: Props) {
   }, [missionUpdate]);
 
   return isLoading ? (
-    <Loading villageName={villageName} villageId={villageId} />
+    <Loading villageName={villageName} />
   ) : (
     <section className="relative min-h-screen grow bg-dorong-white">
       <div className="flex py-[17px] items-center justify-between px-3">

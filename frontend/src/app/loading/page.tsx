@@ -30,8 +30,7 @@ export default function LoadingPage({
       <div>
         <p className="text-dorong-gray-7 text-[28px] font-medium leading-[33.6px]">
           <strong className="text-dorong-primary-main font-extrabold leading-[33.6px]">
-            {/* {village.village_name} */}
-            '하효'
+            {village.village_name}
           </strong>
           로 가는중...
         </p>
