@@ -83,7 +83,7 @@ export default function CreatePage() {
   }, [imageFile, nickname, gender]);
 
   return (
-    <section className="flex flex-col h-full">
+    <section className="flex flex-col bg-dorong-white">
       {
         {
           create: (
