@@ -1,8 +1,24 @@
+'use client';
+
 import Image from 'next/image';
 import VilligeCard from '../../components/VilligeCard';
 import UserItemList from '../../components/UserItem';
+import { useState } from 'react';
 
+const MOCK_ITEMS = [
+  { name: '한라봉', image: '/images/item-0.png' },
+  { name: '한라봉', image: '/images/item-0.png' },
+  { name: '한라봉', image: '/images/item-0.png' },
+  { name: '한라봉', image: '/images/item-0.png' },
+  { name: '한라봉', image: '/images/item-0.png' },
+  { name: '한라봉', image: '/images/item-0.png' },
+  { name: '한라봉', image: '/images/item-0.png' },
+];
 export default function Tour() {
+  const [toggleStart, setToggleStart] = useState(false);
+  const toggleImgUrl = toggleStart
+    ? '/images/toggle-on.svg'
+    : '/images/toggle-off.svg';
   const userName = '도롱';
   return (
     <section className="relative flex flex-col w-full grow bg-dorong-white pb-[65px] min-h-screen">
@@ -38,10 +54,10 @@ export default function Tour() {
             Item
           </h4>
 
-          <div className="relative w-full h-full overflow-x-auto">
+          <div className="relative w-full h-full overflow-x-auto scrollbar-hide">
             <div className="flex gap-[8px] absolute top-[24px]">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
-                <UserItemList key={index} />
+              {MOCK_ITEMS.map((item, index) => (
+                <UserItemList key={index} item={item} />
               ))}
             </div>
           </div>
@@ -49,12 +65,10 @@ export default function Tour() {
       </div>
 
       <div className="px-[24px] mt-[28px] mb-[20px] w-full flex gap-[8px] items-center">
-        <Image
-          src="/images/toggle-off.svg"
-          alt="toggle-off"
-          width={44}
-          height={24}
-        />
+        <button onClick={() => setToggleStart((prev) => !prev)}>
+          <Image src={toggleImgUrl} alt="toggle-off" width={44} height={24} />
+        </button>
+
         <p className="text-[14px] font-medium leading-[18.2px] text-dorong-gray-7">
           START만 보기
         </p>
