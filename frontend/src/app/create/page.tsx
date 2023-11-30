@@ -43,7 +43,7 @@ export default function CreatePage() {
       const file = e.target.files[0];
       if (file.size > MAX_IMAGE_BYTE) {
         console.log('최대  이미지 사이즈 5MB를 초과하였습니다.');
-        notifyToast('최대  이미지 사이즈 10MB를 초과하였습니다.', 'error');
+        notifyToast('최대  이미지 사이즈 5MB를 초과하였습니다.', 'error');
         return;
       }
       const url = window.URL.createObjectURL(file);

@@ -115,17 +115,24 @@ export default function VillageDetailContainer({
                   alt="villageImg"
                   className="object-cover w-full shadow-bottom"
                 />
-                <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
-                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
-                  <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
-                </div>
+                {isClosed ? (
+                  <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-8 px-8 py-1 left-1/2 w-[327px] bg-dorong-orange-light text-xs rounded-md border-2 border-dorong-orange-main">
+                    아직[{village.village_name}]에 도착하지 않았습니다.{' '}
+                    {village.village_name}에 도착하면 퀘스트를 수행할 수 있어요.
+                  </div>
+                ) : (
+                  <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
+                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
+                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
+                  </div>
+                )}
               </div>
               <p className="mt-[52px] mx-5 text-sm text-dorong-gray-7">
                 {village?.village_description}
               </p>
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
-                <Button isAvailable={true} onClick={() => setStep(2)}>
+                <Button isAvailable={!isClosed} onClick={() => setStep(2)}>
                   퀘스트로 이동
                 </Button>
               </div>
