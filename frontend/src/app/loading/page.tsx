@@ -5,13 +5,8 @@ import { UserProfile, Village } from '../../types';
 
 interface LoadingPageProps {
   village: Village;
-  userProfile: UserProfile;
 }
-export default function LoadingPage({
-  village,
-  userProfile,
-}: LoadingPageProps) {
-  const villigeName = '하효';
+export default function LoadingPage({ village }: LoadingPageProps) {
   return (
     <section className="flex flex-col w-full py-[60px] h-screen justify-between bg-[#fff]">
       <div className="h-[100px]">
