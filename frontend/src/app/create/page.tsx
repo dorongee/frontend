@@ -1,18 +1,27 @@
 'use client';
 
 import Image from 'next/image';
-import { ChangeEvent, MutableRefObject, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import folderImage from 'public/images/folder.svg';
 import example from 'public/images/example.png';
 import Select from 'react-select';
 import { AGE_OPTIONS } from '../../constants';
+import Button from '../../components/Button';
+import { SelectType } from '../../types';
 
 export default function CreatePage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
-  const [age, setAge] = useState<string>('20');
+  const [age, setAge] = useState<SelectType>({ value: 20, label: '20' });
   const [sex, setSex] = useState<'man' | 'woman' | null>(null);
+  const [buttonActive, setButtonActive] = useState(false);
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -32,10 +41,18 @@ export default function CreatePage() {
     }
   };
 
+  useEffect(() => {
+    if (imageFile !== null && nickname !== '' && sex !== null) {
+      setButtonActive(true);
+    } else {
+      setButtonActive(false);
+    }
+  }, [imageFile, nickname, sex]);
+
   return (
-    <section className="">
+    <section className="relative h-full">
       <div className="border-b-[1px] border-dorong-gray-4">
-        <h2 className="my-4 text-lg font-bold text-dorong-black">
+        <h2 className="py-4 text-lg font-bold text-dorong-black">
           나만의 아바타를 생성해볼까요?
         </h2>
       </div>
@@ -57,8 +74,10 @@ export default function CreatePage() {
             {imageUrl ? (
               <Image
                 src={imageUrl}
+                width={187}
+                height={250}
                 alt="profileImage"
-                className="w-full h-full "
+                className="object-cover w-full h-full "
               />
             ) : (
               <Image src={example} alt="folderImage" />
@@ -95,8 +114,8 @@ export default function CreatePage() {
           <div className="flex items-center">
             <Select
               options={AGE_OPTIONS}
-              value={{ value: age, label: age }}
-              onChange={(item) => setAge(item.value)}
+              value={age}
+              onChange={setAge}
               placeholder="나이"
               className="w-20 border-b-2 border-dorong-primary-lightlight"
             />
@@ -106,7 +125,7 @@ export default function CreatePage() {
         <div className="flex flex-col">
           <p className="self-start text-sm text-dorong-black mb-[10px]">성별</p>
           <div className="flex w-[160px] justify-between">
-            <div
+            <button
               className={`py-[9px] px-[21px] ${
                 sex === 'man'
                   ? 'text-dorong-white bg-dorong-primary-main'
@@ -115,8 +134,8 @@ export default function CreatePage() {
               onClick={() => setSex('man')}
             >
               남자
-            </div>
-            <div
+            </button>
+            <button
               className={`py-[9px] px-[21px] ${
                 sex === 'woman'
                   ? 'text-dorong-white bg-dorong-primary-main'
@@ -125,11 +144,13 @@ export default function CreatePage() {
               onClick={() => setSex('woman')}
             >
               여자
-            </div>
+            </button>
           </div>
         </div>
       </div>
-      <button className="w-full mx-6 bg-dorong-gray-0">생성하기</button>
+      <div className="absolute w-full px-6 bottom-12">
+        <Button isAvailable={buttonActive}>생성하기</Button>
+      </div>
     </section>
   );
 }
