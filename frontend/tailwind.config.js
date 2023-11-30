@@ -19,7 +19,7 @@ module.exports = {
     colors: {
       dorong: {
         black: 'var(--dorong-black)',
-        white: 'var(--dorong-white',
+        white: 'var(--dorong-white)',
         error: 'var(--dorong-error)',
         positive: 'var(--dorong-positive)',
 
@@ -27,6 +27,7 @@ module.exports = {
           dark: 'var(--dorong-primary-dark)',
           main: 'var(--dorong-primary)',
           light: 'var(--dorong-primary-light)',
+          lightlight: 'var(--dorong-primary-light-light)',
         },
 
         gray: {
