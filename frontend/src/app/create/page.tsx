@@ -115,7 +115,7 @@ export default function CreatePage() {
                 </div>
                 <p className="mt-[10px] text-sm text-dorong-gray-5">
                   아바타를 생성하기 위해서는{' '}
-                  <span className="font-bold text-dorong-gray-6">
+                  <span className="font-bold text-dorong-primary-light">
                     전신 사진
                   </span>
                   이 필요합니다.
@@ -163,8 +163,8 @@ export default function CreatePage() {
                     <button
                       className={`py-[9px] px-[21px] ${
                         gender === 'male'
-                          ? 'text-dorong-white bg-dorong-primary-main'
-                          : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight'
+                          ? 'text-dorong-primary-dark bg-dorong-primary-white border-dorong-primary-dark border-2 font-bold'
+                          : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight font-medium'
                       }  rounded-lg`}
                       onClick={() => setGender('male')}
                     >
@@ -173,8 +173,8 @@ export default function CreatePage() {
                     <button
                       className={`py-[9px] px-[21px] ${
                         gender === 'female'
-                          ? 'text-dorong-white bg-dorong-primary-main'
-                          : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight'
+                          ? 'text-dorong-primary-dark bg-dorong-primary-white border-dorong-primary-dark border-2 font-bold'
+                          : 'text-dorong-gray-5 border-2 border-dorong-primary-lightlight font-medium'
                       } rounded-lg`}
                       onClick={() => setGender('female')}
                     >
@@ -183,7 +183,7 @@ export default function CreatePage() {
                   </div>
                 </div>
               </div>
-              <div className="absolute w-full px-6 bottom-12 h-[48px]">
+              <div className="absolute w-full px-6 bottom-12 h-[48px] text-dorong-white font-medium">
                 <Button isAvailable={buttonActive} onClick={handleClick}>
                   생성하기
                 </Button>

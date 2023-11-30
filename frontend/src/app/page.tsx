@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 
 export default function HomePage() {
   const router = useRouter();
-  console.log(1);
   return (
     <section className="relative flex flex-col h-full">
       <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[184px]" />
@@ -22,7 +21,7 @@ export default function HomePage() {
           <Button
             isAvailable={true}
             onClick={() => router.push('/create')}
-            className="text-[20px] font-medium leading-[23.6px]"
+            className="text-[20px] font-medium leading-[23.6px] text-dorong-white"
           >
             여행을 시작할까요?
           </Button>

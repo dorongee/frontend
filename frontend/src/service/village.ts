@@ -29,3 +29,13 @@ export async function completeMission(missionId: number) {
     .then((res) => res.json())
     .catch(console.error);
 }
+export async function getVillage(villageId: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/data/village/${villageId}`,
+    {
+      method: 'GET',
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
