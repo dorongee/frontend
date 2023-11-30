@@ -6,6 +6,23 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --dorong-primary-dark: #662AB8;
+  --dorong-primary: #9E36CF;
+  --dorong-primary-light: #CF9AE9
+
+  --dorong-black: #262627;
+  --dorong-gray-1:#FAFAFA;
+  --dorong-gray-2:#F7F7F9;
+  --dorong-gray-3:#EEEEF1;
+  --dorong-gray-4:#DADADF;
+  --dorong-gray-5:BDBDBF;
+  --dorong-gray-6:#99999F;
+  --dorong-gray-7:#66666F;
+  --dorong-gray-8:#46464B;
+
+  --dorong-error:#F30B0B;
+  --dorong-positive:#009B07;
 }
 
 @media (prefers-color-scheme: dark) {
