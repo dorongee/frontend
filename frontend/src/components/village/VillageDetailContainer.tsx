@@ -3,11 +3,12 @@
 import Image from 'next/image';
 import villageExample from '/public/images/village-detail-example.png';
 import Button from '../Button';
-import { useState } from 'react';
-import { Mission } from '../../types';
+import { useEffect, useState } from 'react';
+import { Mission, Village } from '../../types';
 import MissionItem from './MissionItem';
 import exampleImg from 'public/images/example.png';
 import { useRouter } from 'next/navigation';
+import { getVillage } from '../../service/village';
 
 const dummy = [
   '먹태깡 맛있게 먹기',
@@ -20,9 +21,14 @@ const dummy = [
 type Props = {
   missions: Mission[];
   onClick: () => void;
+  villageId: number;
 };
 
-export default function VillageDetailContainer({ missions, onClick }: Props) {
+export default function VillageDetailContainer({
+  missions,
+  onClick,
+  villageId,
+}: Props) {
   const [step, setStep] = useState<number>(1);
 
   const [clickedType, setClickedType] = useState<'O' | 'X' | '-'>('-');
@@ -30,6 +36,7 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
   const XImgUrl = clickedType === 'X' ? '/images/X-red.svg' : '/images/X.svg';
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [village, setVillage] = useState<Village>();
 
   const router = useRouter();
 
@@ -65,6 +72,13 @@ export default function VillageDetailContainer({ missions, onClick }: Props) {
     setModalOpen(true);
   };
 
+  useEffect(() => {
+    (async () => {
+      const res = await getVillage(villageId);
+      setVillage(res);
+      console.log(res);
+    })();
+  }, []);
   return (
     <section>
       {

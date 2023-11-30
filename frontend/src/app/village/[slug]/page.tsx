@@ -13,15 +13,14 @@ import Loading from '../../../components/village/Loading';
 type Props = {
   params: {
     slug: string;
-    query: string;
   };
 };
 
-export default function VillageDetailPage({ params: test }: Props) {
+export default function VillageDetailPage({ params: { slug } }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const [missions, setMissions] = useState<Mission[]>([]);
   const [missionUpdate, setMissionUpdate] = useState<boolean>(false);
-  const villageId = Number(test.slug);
+  const villageId = Number(slug);
   const router = useRouter();
   const villageName = useSearchParams().get('name');
 
@@ -47,6 +46,7 @@ export default function VillageDetailPage({ params: test }: Props) {
       <VillageDetailContainer
         missions={missions}
         onClick={() => setMissionUpdate((a) => !a)}
+        villageId={Number(slug)}
       />
     </section>
   );
