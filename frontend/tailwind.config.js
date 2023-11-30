@@ -19,6 +19,7 @@ module.exports = {
     colors: {
       dorong: {
         black: 'var(--dorong-black)',
+        white: 'var(--dorong-white',
         error: 'var(--dorong-error)',
         positive: 'var(--dorong-positive)',
 
