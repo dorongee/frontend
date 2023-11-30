@@ -9,6 +9,7 @@ import { UserItem, UserProfile, Village } from '../../types';
 import { getVillageAll } from '../../service/village';
 import { checkVillageDistance } from '../../app/util';
 import { PositionContext } from '../../app/layout';
+import { NORMAL_IMG_KEY, USER_ID_KEY } from '../../constants';
 
 export default function VillageContainer() {
   const [toggleStart, setToggleStart] = useState(false);
@@ -24,8 +25,9 @@ export default function VillageContainer() {
 
   useEffect(() => {
     (async () => {
-      const profile = getUserProfile(1);
-      const items = getUserItems(1);
+      const userId = Number(sessionStorage.getItem(USER_ID_KEY));
+      const profile = getUserProfile(userId);
+      const items = getUserItems(userId);
       Promise.all([profile, items]).then((res) => {
         setUserProfile(res[0]);
         setUserItems(res[1]);
@@ -80,7 +82,7 @@ export default function VillageContainer() {
       <div className="flex gap-[16px] w-full justify-center pt-[24px]">
         <div className="w-[156px] relative">
           <Image
-            src="/images/avatar.png"
+            src={sessionStorage.getItem(NORMAL_IMG_KEY)}
             alt="main-map"
             width={80}
             height={377}
