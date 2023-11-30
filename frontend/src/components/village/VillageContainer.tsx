@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import VilligeCard from '../../components/VilligeCard';
-import UserItemList from '../../components/UserItem';
-import { useState } from 'react';
+import VilligeCard from '../../components/tour/VilligeCard';
+import UserItemList from '../../components/tour/UserItem';
+import { useEffect, useState } from 'react';
 
 type Props = {
   items: {
@@ -64,16 +64,24 @@ export default function VillageContainer({ items, villages }: Props) {
         </div>
       </div>
 
-      <div className="px-[24px] mt-[28px] mb-[20px] w-full flex gap-[8px] items-center">
-        <button onClick={() => setToggleStart((prev) => !prev)}>
-          <Image src={toggleImgUrl} alt="toggle-off" width={44} height={24} />
-        </button>
+      <div className="flex justify-between px-[24px] w-full items-center mb-[20px] mt-[48px]">
+        <span className="text-dorong-black text-[20px] font-bold leading-[23.6px]">
+          마을 목록
+        </span>
 
-        <p className="text-[14px] font-medium leading-[18.2px] text-dorong-gray-7">
-          START만 보기
-        </p>
+        <div className="flex gap-[8px] items-center">
+          <p className="text-[14px] font-medium leading-[18.2px] text-dorong-gray-7">
+            시작하기만 보기
+          </p>
+          <button onClick={() => setToggleStart((prev) => !prev)}>
+            <Image src={toggleImgUrl} alt="toggle-off" width={44} height={24} />
+          </button>
+        </div>
       </div>
 
+      <h4 className="text-dorong-primary-light text-[16px] font-bold leading-[20px] flex px-[24px] mb-[16px]">
+        마을 안에 있으면 시작 할 수 있어요!
+      </h4>
       <div className="flex flex-col gap-[16px] px-[24px]">
         {[1, 2, 3, 4, 5].map((_, index) => (
           <VilligeCard key={index} />
