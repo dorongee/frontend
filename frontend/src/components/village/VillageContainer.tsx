@@ -5,16 +5,15 @@ import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
 import { useEffect, useState } from 'react';
 
-const MOCK_ITEMS = [
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-  { name: '한라봉', image: '/images/item-0.png' },
-];
-export default function Tour() {
+type Props = {
+  items: {
+    name: string;
+    image: string;
+  }[];
+  villages: object[];
+};
+
+export default function VillageContainer({ items, villages }: Props) {
   const [toggleStart, setToggleStart] = useState(false);
   const toggleImgUrl = toggleStart
     ? '/images/toggle-on.svg'
@@ -57,7 +56,7 @@ export default function Tour() {
 
           <div className="relative w-full h-full overflow-x-auto scrollbar-hide">
             <div className="flex gap-[8px] absolute top-[24px]">
-              {MOCK_ITEMS.map((item, index) => (
+              {items.map((item, index) => (
                 <UserItemList key={index} item={item} />
               ))}
             </div>
