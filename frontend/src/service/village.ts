@@ -18,11 +18,8 @@ export async function getMissionsByVillageIdAndUserId(
 }
 
 export async function completeMission(missionId: number) {
-  return fetch(`${SERVER_ADDRESS}/data/mission/${missionId}`, {
+  return fetch(`${SERVER_ADDRESS}/data/mission/${missionId}?is_complete=true`, {
     method: 'PUT',
-    body: JSON.stringify({
-      is_complete: true,
-    }),
   })
     .then((res) => res.json())
     .catch(console.error);
@@ -36,12 +33,12 @@ export async function getVillage(villageId: number) {
 }
 
 export async function registerQuiz(userId: number, quizId: number) {
-  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/quiz/${quizId}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      is_correct: true,
-    }),
-  })
+  return fetch(
+    `${SERVER_ADDRESS}/data/user/${userId}/quiz/${quizId}?is_correct=true`,
+    {
+      method: 'PUT',
+    }
+  )
     .then((res) => res.json())
     .catch(console.error);
 }
