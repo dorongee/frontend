@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { CHEERING_IMG_KEY } from '../../constants';
+import { CHEERING_IMG_KEY, NORMAL_IMG_KEY } from '../../constants';
 import { useEffect, useState } from 'react';
 
 interface LoadingPageProps {
@@ -38,7 +38,7 @@ export default function Loading({ villageName }: LoadingPageProps) {
           </p>
           <div className="flex justify-center w-full mt-[60px]">
             <Image
-              src={sessionStorage.getItem(CHEERING_IMG_KEY) ?? ''}
+              src={sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''}
               // src={`/images/village-${village.village_id}.png`}
               alt="avatar"
               width={80}

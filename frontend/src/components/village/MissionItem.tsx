@@ -3,7 +3,7 @@
 import { Mission } from '../../types';
 import Image from 'next/image';
 import exampleImg from 'public/images/example.png';
-import { CHEERING_IMG_KEY } from '../../constants';
+import { CHEERING_IMG_KEY, NORMAL_IMG_KEY } from '../../constants';
 import { completeMission } from '../../service/village';
 
 type Props = {
@@ -31,7 +31,7 @@ export default function MissionItem({ mission, onClick }: Props) {
       </div>
       {mission.is_complete ? (
         <Image
-          src={sessionStorage.getItem(CHEERING_IMG_KEY) ?? ''}
+          src={sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''}
           width={56}
           height={56}
           alt="cheeringImg"

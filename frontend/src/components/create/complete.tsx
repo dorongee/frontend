@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Button from '../Button';
-import { CHEERING_IMG_KEY } from '../../constants';
+import { CHEERING_IMG_KEY, NORMAL_IMG_KEY } from '../../constants';
 import { useRouter } from 'next/navigation';
 
 type Props = {
@@ -23,7 +23,7 @@ export default function Complete({ nickname }: Props) {
       <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[384px]" />
       <div className="flex justify-center mt-[32px]">
         <Image
-          src={sessionStorage.getItem(CHEERING_IMG_KEY) ?? ''}
+          src={sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''}
           alt="main-map"
           width={155}
           height={377}

@@ -38,7 +38,6 @@ export default function VillageDetailContainer({
   const [modalOpen, setModalOpen] = useState(false);
   const [village, setVillage] = useState<Village>();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
-  const [quizIdx, setQuizIdx] = useState<number>(0);
   const [isClosed, setIsClosed] = useState(false);
 
   const router = useRouter();
@@ -47,7 +46,7 @@ export default function VillageDetailContainer({
   const handleSuccessClick = () => {
     setModalOpen(true);
     const userId = Number(sessionStorage.getItem(USER_ID_KEY));
-    registerQuiz(userId, quizzes[quizIdx].quiz.quiz_id);
+    registerQuiz(userId, quizzes[0].quiz.quiz_id);
   };
 
   useEffect(() => {
@@ -161,7 +160,7 @@ export default function VillageDetailContainer({
               <div className="px-[24px] mb-[100px]">
                 <div className="w-full border-dorong-primary-light border-[2px] rounded-xl">
                   <p className="text-[20px] font-bold leading-[23.6px] text-dorong-black px-[36px] py-[23px] ">
-                    {quizzes[quizIdx].quiz.question}
+                    {quizzes[0].quiz.question}
                   </p>
                 </div>
               </div>
@@ -186,20 +185,22 @@ export default function VillageDetailContainer({
                   <div className="w-screen h-screen opacity-50 bg-dorong-black"></div>
                   <div className="absolute flex flex-col items-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-dorong-white w-[327px] h-[410px] py-8 px-5 rounded-xl">
                     <p className="text-2xl font-bold text-dorong-primary-dark rounded-2xl">
-                      {clickedType === 'O' ? '성공!' : '다시 시도해볼까요?'}
+                      {quizzes[0].quiz.answer === clickedType
+                        ? '성공!'
+                        : '다시 시도해볼까요?'}
                     </p>
                     <Image
                       src={
-                        clickedType === 'O'
-                          ? sessionStorage.getItem(CHEERING_IMG_KEY) ?? ''
-                          : sessionStorage.getItem(DESPAIR_IMG_KEY) ?? ''
+                        quizzes[0].quiz.answer === clickedType
+                          ? sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''
+                          : sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''
                       }
                       width={176}
                       height={176}
                       alt="example"
                       className="my-[50px]"
                     />
-                    {clickedType === 'O' ? (
+                    {quizzes[0].quiz.answer === clickedType ? (
                       <button
                         className="flex justify-around w-full py-2 rounded-xl bg-dorong-primary-lightlight"
                         onClick={() => setStep(4)}
@@ -221,7 +222,6 @@ export default function VillageDetailContainer({
                           className="px-2 text-lg border-2 text-dorong-black rounded-xl border-dorong-primary-light"
                           onClick={() => {
                             setModalOpen(false);
-                            setQuizIdx((i) => i + 1);
                             setStep(3);
                           }}
                         >
