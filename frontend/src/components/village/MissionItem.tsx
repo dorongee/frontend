@@ -35,7 +35,7 @@ export default function MissionItem({ mission, onClick }: Props) {
           width={56}
           height={56}
           alt="cheeringImg"
-          className="object-cover bg-dorong-primary-light"
+          className="object-cover bg-dorong-primary-light w-14 h-14"
         />
       ) : (
         <div className="w-[56px] h-[56px] bg-dorong-gray-3"></div>
