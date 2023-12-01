@@ -8,7 +8,12 @@ import { Mission, Quiz, Village } from '../../types';
 import MissionItem from './MissionItem';
 import exampleImg from 'public/images/example.png';
 import { useRouter } from 'next/navigation';
-import { getQuiz, getVillage, registerQuiz } from '../../service/village';
+import {
+  createItem,
+  getQuiz,
+  getVillage,
+  registerQuiz,
+} from '../../service/village';
 import { PositionContext } from '../../app/layout';
 import { checkVillageDistance } from '../../app/util';
 import {
@@ -231,7 +236,14 @@ export default function VillageDetailContainer({
                     {'X' === clickedType ? (
                       <button
                         className="flex justify-around w-full py-2 rounded-xl bg-dorong-primary-lightlight"
-                        onClick={() => setStep(4)}
+                        onClick={() => {
+                          const userId = Number(
+                            sessionStorage.getItem(USER_ID_KEY)
+                          );
+                          createItem(userId, 7).then(() => {
+                            setStep(4);
+                          });
+                        }}
                       >
                         아이템 받으러 가기
                       </button>

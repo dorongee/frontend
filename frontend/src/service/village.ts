@@ -56,3 +56,9 @@ export async function getQuiz(
     .then((res) => res.json())
     .catch(console.error);
 }
+
+export async function createItem(userId: number, itemId: number) {
+  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/items/${itemId}`)
+    .then((res) => res.json())
+    .catch(console.error);
+}
