@@ -80,6 +80,34 @@ export default function VillageDetailContainer({
     }
   }, [step]);
 
+  const dummy = [
+    {
+      user_mission_id: 1,
+      mission_details: 'string;',
+      is_complete: false,
+    },
+    {
+      user_mission_id: 2,
+      mission_details: 'string;',
+      is_complete: false,
+    },
+    {
+      user_mission_id: 3,
+      mission_details: 'string;',
+      is_complete: false,
+    },
+    {
+      user_mission_id: 4,
+      mission_details: 'string;',
+      is_complete: false,
+    },
+    {
+      user_mission_id: 5,
+      mission_details: 'string;',
+      is_complete: false,
+    },
+  ];
+
   return (
     <section>
       {
@@ -94,7 +122,7 @@ export default function VillageDetailContainer({
                 />
                 {!isClosed ? (
                   <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-8 px-8 py-1 left-1/2 w-[327px] bg-dorong-orange-light text-xs rounded-md border-2 border-dorong-orange-main">
-                    아직[{village.village_name}]에 도착하지 않았습니다.
+                    아직[{village?.village_name}]에 도착하지 않았습니다.
                     {village.village_name}에 도착하면 퀘스트를 수행할 수 있어요.
                   </div>
                 ) : (
@@ -109,7 +137,7 @@ export default function VillageDetailContainer({
                 {village?.village_description}
               </p>
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
-                <Button isAvailable={!isClosed} onClick={() => setStep(2)}>
+                <Button isAvailable={isClosed} onClick={() => setStep(2)}>
                   퀘스트로 이동
                 </Button>
               </div>
