@@ -22,8 +22,15 @@ export default function Loading() {
         />
       </div>
       <div className="flex flex-col items-center text-[20px] font-bold leading-[23.6px]">
-        <p>(제주 세계관)에</p>
-        <p>입장할 준비를 하고 있어요.</p>
+        <p>
+          '제주
+          <strong className="text-[24px] font-bold leading-[23.6px] text-dorong-primary-main">
+            {' 마을엔'}
+          </strong>
+          '
+        </p>
+        <p>무엇이 있을까요?</p>
+        <p>입장할 준비를 하고 있습니다.</p>
       </div>
     </section>
   );
