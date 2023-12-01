@@ -68,8 +68,8 @@ export default function VillageDetailContainer({
       village_lat: Number(village.latitude),
       village_lon: Number(village.longitude),
     });
-    console.log(distance <= Number(village.radius) * 15);
-    setIsClosed(distance <= Number(village.radius) * 15);
+    console.log(distance <= Number(village.radius) * 5);
+    setIsClosed(distance <= Number(village.radius) * 5);
   }, [village]);
 
   useEffect(() => {

@@ -9,7 +9,7 @@ interface VillageCardProps {
 }
 
 function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
-  const isClosed = village?.distance <= Number(village.radius) * 15;
+  const isClosed = village?.distance <= Number(village.radius) * 5;
   const villageType = userProfile?.completed_villages.includes(
     village.village_id
   )

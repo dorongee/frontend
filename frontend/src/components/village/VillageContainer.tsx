@@ -54,8 +54,8 @@ export default function VillageContainer() {
             });
           });
           res.sort((a, b) => {
-            if (a.distance < a.radius * 15) return -1;
-            if (b.distance < b.radius * 15) return 1;
+            if (a.distance < a.radius * 5) return -1;
+            if (b.distance < b.radius * 5) return 1;
             return a.distance - b.distance;
           });
           setVillages(res);
@@ -70,8 +70,8 @@ export default function VillageContainer() {
           });
         });
         res.sort((a, b) => {
-          if (a.distance < a.radius * 15) return -1;
-          if (b.distance < b.radius * 15) return 1;
+          if (a.distance < a.radius * 5) return -1;
+          if (b.distance < b.radius * 5) return 1;
           return a.distance - b.distance;
         });
         setVillages(res);
