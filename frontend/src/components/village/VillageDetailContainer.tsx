@@ -123,7 +123,8 @@ export default function VillageDetailContainer({
                 {!isClosed ? (
                   <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-8 px-8 py-1 left-1/2 w-[327px] bg-dorong-orange-light text-xs rounded-md border-2 border-dorong-orange-main">
                     아직[{village?.village_name}]에 도착하지 않았습니다.
-                    {village.village_name}에 도착하면 퀘스트를 수행할 수 있어요.
+                    {village?.village_name}에 도착하면 퀘스트를 수행할 수
+                    있어요.
                   </div>
                 ) : (
                   <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
