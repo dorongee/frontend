@@ -46,19 +46,16 @@ export async function registerQuiz(userId: number, quizId: number) {
     .catch(console.error);
 }
 
-export async function getQuizes(
+export async function getQuiz(
   villageId: number,
   userId: number
-): Promise<Quiz[]> {
-  return fetch(
-    `${SERVER_ADDRESS}/data/village/${villageId}/${userId}}/quizzes`,
-    {
-      method: 'GET',
-      body: JSON.stringify({
-        is_correct: true,
-      }),
-    }
-  )
+): Promise<Quiz> {
+  return fetch(`${SERVER_ADDRESS}/data/village/${villageId}/${userId}}/quiz`, {
+    method: 'GET',
+    body: JSON.stringify({
+      is_correct: true,
+    }),
+  })
     .then((res) => res.json())
     .catch(console.error);
 }

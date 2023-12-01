@@ -55,5 +55,5 @@ export type Quiz = {
     answer: string;
     village_id: number;
   };
-  is_correct: boolean;
+  is_correct: boolean | null;
 };
