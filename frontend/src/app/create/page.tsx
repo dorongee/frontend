@@ -64,10 +64,10 @@ export default function CreatePage() {
       .then(async (userId) => {
         sessionStorage.setItem(USER_ID_KEY, userId.toString());
         const normal = await registerUserNormalImage(userId, imageFile);
-        const cheering = await registerUserCheeringImage(userId, imageFile);
-        const despair = await registerUserDespairImage(userId, imageFile);
-        sessionStorage.setItem(CHEERING_IMG_KEY, cheering.url);
-        sessionStorage.setItem(DESPAIR_IMG_KEY, despair.url);
+        // const cheering = await registerUserCheeringImage(userId, imageFile);
+        // const despair = await registerUserDespairImage(userId, imageFile);
+        // sessionStorage.setItem(CHEERING_IMG_KEY, cheering.url);
+        // sessionStorage.setItem(DESPAIR_IMG_KEY, despair.url);
         sessionStorage.setItem(NORMAL_IMG_KEY, normal.url);
         setCurrentState('complete');
       });
