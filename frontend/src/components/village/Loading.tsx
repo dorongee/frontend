@@ -38,7 +38,7 @@ export default function Loading({ villageName }: LoadingPageProps) {
           </p>
           <div className="flex justify-center w-full mt-[60px]">
             <Image
-              src={sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''}
+              src={'/images/avatar.png'}
               // src={`/images/village-${village.village_id}.png`}
               alt="avatar"
               width={80}

@@ -25,7 +25,7 @@ export default function VillageDetailPage({ params: { slug } }: Props) {
   const villageName = useSearchParams().get('name');
 
   useEffect(() => {
-    const userId = Number(sessionStorage.getItem(USER_ID_KEY));
+    const userId = Number('1');
 
     getMissionsByVillageIdAndUserId(villageId, userId).then((res) => {
       setMissions(res);

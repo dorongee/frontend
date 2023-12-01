@@ -23,7 +23,7 @@ export default function Complete({ nickname }: Props) {
       <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[384px]" />
       <div className="flex justify-center mt-[32px]">
         <Image
-          src={sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''}
+          src={'/images/avatar.png'}
           alt="main-map"
           width={155}
           height={377}

@@ -31,7 +31,7 @@ export default function MissionItem({ mission, onClick }: Props) {
       </div>
       {mission.is_complete ? (
         <Image
-          src={sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''}
+          src={'/images/avatar.png'}
           width={56}
           height={56}
           alt="cheeringImg"

@@ -45,7 +45,7 @@ export default function VillageDetailContainer({
 
   const handleSuccessClick = () => {
     setModalOpen(true);
-    const userId = Number(sessionStorage.getItem(USER_ID_KEY));
+    const userId = Number('1');
     registerQuiz(userId, quiz.quiz.quiz_id);
   };
 
@@ -53,7 +53,7 @@ export default function VillageDetailContainer({
     (async () => {
       const res = await getVillage(villageId);
       setVillage(res);
-      const userId = Number(sessionStorage.getItem(USER_ID_KEY));
+      const userId = Number('1');
       const quiz = await getQuiz(villageId, userId);
       setQuiz(quiz);
     })();
@@ -190,11 +190,7 @@ export default function VillageDetailContainer({
                         : '다시 시도해볼까요?'}
                     </p>
                     <Image
-                      src={
-                        quiz.quiz.answer === clickedType
-                          ? sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''
-                          : sessionStorage.getItem(NORMAL_IMG_KEY) ?? ''
-                      }
+                      src={'/images/avatar.png'}
                       width={176}
                       height={176}
                       alt="example"
