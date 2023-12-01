@@ -30,7 +30,7 @@ export default function Complete({ nickname }: Props) {
           className="z-10"
         />
       </div>
-      <div className="absolute w-full px-6 bottom-12 h-[48px]">
+      <div className=" w-full px-6  h-[48px] text-dorong-white mt-10 z-10 ">
         <Button
           isAvailable={true}
           onClick={() => {
