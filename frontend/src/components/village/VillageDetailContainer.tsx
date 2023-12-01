@@ -46,7 +46,7 @@ export default function VillageDetailContainer({
   const handleSuccessClick = () => {
     setModalOpen(true);
     const userId = Number('1');
-    registerQuiz(userId, quiz.quiz.quiz_id);
+    quiz && registerQuiz(userId, quiz.quiz.quiz_id);
   };
 
   useEffect(() => {
