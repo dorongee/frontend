@@ -191,7 +191,11 @@ export default function VillageDetailContainer({
                         : '다시 시도해볼까요?'}
                     </p>
                     <Image
-                      src={'/images/avatar.png'}
+                      src={
+                        quiz?.quiz.answer === clickedType
+                          ? '/images/cheering.png'
+                          : '/images/in_despair.png'
+                      }
                       width={176}
                       height={176}
                       alt="example"
