@@ -135,7 +135,7 @@ export default function VillageDetailContainer({
                   />
                 ))}
               </ul>
-              <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
+              <div className="w-full h-[48px] px-6 mt-10 text-dorong-white">
                 <Button
                   isAvailable={
                     missions.filter((mission) => mission.is_complete).length >=
@@ -173,7 +173,7 @@ export default function VillageDetailContainer({
                   <Image src={XImgUrl} alt="X" width={120} height={120} />
                 </button>
               </div>
-              <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
+              <div className=" w-full h-[48px] px-6 mt-10 text-dorong-white">
                 <Button
                   isAvailable={clickedType !== '-'}
                   onClick={handleSuccessClick}
