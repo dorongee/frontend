@@ -8,16 +8,15 @@ export default function HomePage() {
   const router = useRouter();
   return (
     <section className="relative flex flex-col h-full">
-      <div className="absolute h-[230px] w-full bg-dorong-primary-light blur-[125px] top-[184px]" />
-      <div className="absolute flex flex-col justify-end w-full h-full pb-[75px] items-center">
+      <div className="absolute flex flex-col justify-end w-full h-full pb-[75px] items-center px-6">
         <Image
-          src="/images/main-map.png"
-          alt="main-map"
+          src="/images/splash_logo.png"
+          alt="splash_logo"
           width={412}
           height={412}
-          className="z-10"
+          className="z-10 mb-[200px]"
         />
-        <div className="w-full px-6 h-[48px]">
+        <div className="w-full  h-[48px]">
           <Button
             isAvailable={true}
             onClick={() => router.push('/create')}
