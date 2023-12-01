@@ -3,18 +3,19 @@
 import Image from 'next/image';
 import villageExample from '/public/images/village-detail-example.png';
 import Button from '../Button';
-import { useContext, useEffect, useState } from 'react';
-import { Mission, Village } from '../../types';
+import { useContext, useEffect, useId, useState } from 'react';
+import { Mission, Quiz, Village } from '../../types';
 import MissionItem from './MissionItem';
 import exampleImg from 'public/images/example.png';
 import { useRouter } from 'next/navigation';
-import { getVillage } from '../../service/village';
+import { getQuizes, getVillage, registerQuiz } from '../../service/village';
 import { PositionContext } from '../../app/layout';
 import { checkVillageDistance } from '../../app/util';
 import {
   CHEERING_IMG_KEY,
   DESPAIR_IMG_KEY,
   NORMAL_IMG_KEY,
+  USER_ID_KEY,
 } from '../../constants';
 
 type Props = {
@@ -36,6 +37,8 @@ export default function VillageDetailContainer({
 
   const [modalOpen, setModalOpen] = useState(false);
   const [village, setVillage] = useState<Village>();
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const [quizIdx, setQuizIdx] = useState<number>(0);
   const [isClosed, setIsClosed] = useState(false);
 
   const router = useRouter();
@@ -43,12 +46,17 @@ export default function VillageDetailContainer({
 
   const handleSuccessClick = () => {
     setModalOpen(true);
+    const userId = Number(sessionStorage.getItem(USER_ID_KEY));
+    registerQuiz(userId, quizzes[quizIdx].quiz.quiz_id);
   };
 
   useEffect(() => {
     (async () => {
       const res = await getVillage(villageId);
       setVillage(res);
+      const userId = Number(sessionStorage.getItem(USER_ID_KEY));
+      const quizes = await getQuizes(villageId, userId);
+      setQuizzes(quizes);
     })();
   }, []);
 
@@ -153,8 +161,7 @@ export default function VillageDetailContainer({
               <div className="px-[24px] mb-[100px]">
                 <div className="w-full border-dorong-primary-light border-[2px] rounded-xl">
                   <p className="text-[20px] font-bold leading-[23.6px] text-dorong-black px-[36px] py-[23px] ">
-                    이 마을은 전통적인 제주도 가옥과 아름다운 풍경으로
-                    유명한가요?
+                    {quizzes[quizIdx].quiz.question}
                   </p>
                 </div>
               </div>
@@ -214,6 +221,7 @@ export default function VillageDetailContainer({
                           className="px-2 text-lg border-2 text-dorong-black rounded-xl border-dorong-primary-light"
                           onClick={() => {
                             setModalOpen(false);
+                            setQuizIdx((i) => i + 1);
                             setStep(3);
                           }}
                         >

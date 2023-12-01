@@ -47,3 +47,13 @@ export type Mission = {
   mission_details: string;
   is_complete: boolean;
 };
+
+export type Quiz = {
+  quiz: {
+    quiz_id: number;
+    question: string;
+    answer: string;
+    village_id: number;
+  };
+  is_correct: boolean;
+};
