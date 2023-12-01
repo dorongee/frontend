@@ -61,17 +61,15 @@ export default function CreatePage() {
     setCurrentState('loading');
     registerUserProfile(nickname, age.value, gender)
       .then((res) => res.user_data_id)
-      .then((userId) => {
+      .then(async (userId) => {
         sessionStorage.setItem(USER_ID_KEY, userId.toString());
-        const normal = registerUserNormalImage(userId, imageFile);
-        const cheering = registerUserCheeringImage(userId, imageFile);
-        const despair = registerUserDespairImage(userId, imageFile);
-        Promise.all([normal, cheering, despair]).then((res) => {
-          sessionStorage.setItem(CHEERING_IMG_KEY, res[0].url);
-          sessionStorage.setItem(DESPAIR_IMG_KEY, res[1].url);
-          sessionStorage.setItem(NORMAL_IMG_KEY, res[2].url);
-          setCurrentState('complete');
-        });
+        const normal = await registerUserNormalImage(userId, imageFile);
+        const cheering = await registerUserCheeringImage(userId, imageFile);
+        const despair = await registerUserDespairImage(userId, imageFile);
+        sessionStorage.setItem(CHEERING_IMG_KEY, cheering.url);
+        sessionStorage.setItem(DESPAIR_IMG_KEY, despair.url);
+        sessionStorage.setItem(NORMAL_IMG_KEY, normal.url);
+        setCurrentState('complete');
       });
   };
 
