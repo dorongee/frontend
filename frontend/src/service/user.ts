@@ -6,11 +6,11 @@ export async function registerUserProfile(
   age: number,
   gender: string
 ): Promise<UserProfile> {
-  const url = new URL(`${SERVER_ADDRESS}/data/user`);
-
+  const url = new URL(
+    `${window.location.href.split('create')[0]}/api/data/user`
+  );
   const params = { nickname, gender, age: age.toString() };
   url.search = new URLSearchParams(params).toString();
-
   return fetch(url, {
     method: 'POST',
   })
