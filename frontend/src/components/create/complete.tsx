@@ -12,7 +12,7 @@ type Props = {
 export default function Complete({ nickname }: Props) {
   const router = useRouter();
 
-  const productName = '프로젝트명';
+  const productName = '마을엔';
   return (
     <section className="relative flex flex-col h-full">
       <div className="mt-[80px] text-[18px] font-bold leading-[21.6px]">
