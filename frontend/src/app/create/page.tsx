@@ -59,18 +59,21 @@ export default function CreatePage() {
 
   const handleClick = () => {
     setCurrentState('loading');
-    registerUserProfile(nickname, age.value, gender)
-      .then((res) => res.user_data_id)
-      .then(async (userId) => {
-        sessionStorage.setItem(USER_ID_KEY, userId.toString());
-        const normal = await registerUserNormalImage(userId, imageFile);
-        // const cheering = await registerUserCheeringImage(userId, imageFile);
-        // const despair = await registerUserDespairImage(userId, imageFile);
-        // sessionStorage.setItem(CHEERING_IMG_KEY, cheering.url);
-        // sessionStorage.setItem(DESPAIR_IMG_KEY, despair.url);
-        sessionStorage.setItem(NORMAL_IMG_KEY, normal.url);
-        setCurrentState('complete');
-      });
+    // registerUserProfile(nickname, age.value, gender)
+    //   .then((res) => res.user_data_id)
+    //   .then(async (userId) => {
+    //     sessionStorage.setItem(USER_ID_KEY, userId.toString());
+    //     const normal = await registerUserNormalImage(userId, imageFile);
+    //     // const cheering = await registerUserCheeringImage(userId, imageFile);
+    //     // const despair = await registerUserDespairImage(userId, imageFile);
+    //     // sessionStorage.setItem(CHEERING_IMG_KEY, cheering.url);
+    //     // sessionStorage.setItem(DESPAIR_IMG_KEY, despair.url);
+    //     sessionStorage.setItem(NORMAL_IMG_KEY, normal.url);
+    //     setCurrentState('complete');
+    //   });
+    setTimeout(() => {
+      setCurrentState('complete');
+    }, 2000);
   };
 
   useEffect(() => {
