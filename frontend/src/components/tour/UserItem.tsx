@@ -10,7 +10,7 @@ function UserItemList({ item }: UserItemListProps) {
       <div className="w-[60px] h-[60px] rounded-[4px] bg-[#FBF4FF]">
         {item && (
           <Image
-            src={item ? `/images/item-${item + 1}.png` : ''}
+            src={item ? `/images/item-${item}.png` : ''}
             alt="item"
             width={60}
             height={60}

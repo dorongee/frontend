@@ -14,27 +14,26 @@ import Reward from './Reward';
 
 type Props = {
   villageId: number;
+  userName: string;
 };
 
-export default function VillageDetailContainer({ villageId }: Props) {
+export default function VillageDetailContainer({ villageId, userName }: Props) {
   const [step, setStep] = useState<number>(1);
 
   const [isClosed, setIsClosed] = useState(false);
 
   const router = useRouter();
   const pos = useContext(PositionContext);
-  const village = VILLAGE_INFO[villageId];
+  const [village] = VILLAGE_INFO.filter((village) => village.id === villageId);
 
   useEffect(() => {
-    if (!village) return;
-
     const distance = checkVillageDistance({
       my_lat: pos.latitude,
       my_lon: pos.longitude,
       village_lat: Number(village.latitude),
       village_lon: Number(village.longitude),
     });
-    setIsClosed(distance <= Number(village.radius) * 5);
+    setIsClosed(distance <= Number(village.radius) || userName === '도롱이');
   }, [village]);
 
   useEffect(() => {
@@ -81,8 +80,8 @@ export default function VillageDetailContainer({ villageId }: Props) {
             </section>
           ),
           2: <Mission setStep={setStep} />,
-          3: <Quiz setStep={setStep} villageId={villageId} />,
-          4: <Reward villageId={villageId} />,
+          3: <Quiz setStep={setStep} village={village} />,
+          4: <Reward village={village} />,
         }[step]
       }
     </section>

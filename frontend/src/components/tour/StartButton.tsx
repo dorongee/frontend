@@ -1,4 +1,3 @@
-import { type } from 'os';
 import Button from '../Button';
 
 function StartButton({ type }: { type: 'start' | 'complete' | 'check' }) {
@@ -18,7 +17,7 @@ function StartButton({ type }: { type: 'start' | 'complete' | 'check' }) {
     <div className="w-[76px] py-[16px]">
       <Button
         isAvailable={type !== 'complete'}
-        className={`flex items-center justify-center p-[8px] ${className[type]} bg-dorong-primary-main`}
+        className={`flex items-center justify-center p-[8px] ${className[type]}`}
       >
         {text[type]}
       </Button>

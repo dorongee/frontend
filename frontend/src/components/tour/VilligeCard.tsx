@@ -20,7 +20,7 @@ function VilligeCard({ village, toggleStart, userItems }: VillageCardProps) {
     <div className="flex px-[12px] justify-between items-center h-[70px] bg-dorong-white rounded-[10px] shadow-[0_2px_10px_0px_rgba(0,0,0,0.07)]">
       <div className="flex gap-[16px]">
         <Image
-          src={`/images/village-${village.id + 1}.png`}
+          src={`/images/village-${village.id}.png`}
           alt={village.name}
           width={85}
           height={65}
