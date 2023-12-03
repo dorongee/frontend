@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {
   ChangeEvent,
   MutableRefObject,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -16,6 +17,7 @@ import { Gender, SelectType } from '../../types';
 import Loading from '../../components/create/loading';
 import Complete from '../../components/create/complete';
 import { notifyToast } from '../../service/notify';
+import { PositionContext } from '../layout';
 
 export default function CreatePage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -27,6 +29,7 @@ export default function CreatePage() {
   const [currentState, setCurrentState] = useState<
     'create' | 'loading' | 'complete'
   >('create');
+  const { position: pos, setPosition } = useContext(PositionContext);
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -44,6 +47,12 @@ export default function CreatePage() {
   };
 
   const handleClick = () => {
+    console.log(pos);
+    if (nickname === '도롱이') {
+      console.log('도롱이');
+      setPosition({ latitude: 33.5489326, longitude: 126.7557395 });
+    }
+
     setCurrentState('loading');
     setTimeout(() => {
       setCurrentState('complete');

@@ -10,9 +10,9 @@ export const pretendard = localFont({
   variable: '--font-pretendard',
   display: 'swap',
 });
-export const PositionContext = createContext<Position>({
-  latitude: 0,
-  longitude: 0,
+export const PositionContext = createContext<any>({
+  position: { latitude: 0, longitude: 0 },
+  setPosition: () => {},
 });
 export default function RootLayout({ children }) {
   const [position, setPosition] = useState<Position>({
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`flex justify-center w-screen bg-dorong-primary-light`}>
         <main className="max-w-[500px] w-full bg-dorong-gray-1 text-center h-screen">
-          <PositionContext.Provider value={position}>
+          <PositionContext.Provider value={{ position, setPosition }}>
             {children}
           </PositionContext.Provider>
         </main>

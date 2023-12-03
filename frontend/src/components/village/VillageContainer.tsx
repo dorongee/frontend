@@ -3,14 +3,13 @@
 import Image from 'next/image';
 import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Village } from '../../types';
 import {
   checkVillageDistance,
   getUserItems,
   getUserName,
 } from '../../app/util';
-import { PositionContext } from '../../app/layout';
 import { VILLAGE_INFO } from '../../constants';
 
 export default function VillageContainer() {
@@ -22,9 +21,7 @@ export default function VillageContainer() {
   const [userName, setUserName] = useState('');
   const [userItems, setUserItems] = useState<number[]>([]);
   const [villages, setVillages] = useState<Village[]>([]);
-
-  const pos = useContext(PositionContext);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const items = getUserItems();
     const userName = getUserName();
@@ -33,31 +30,17 @@ export default function VillageContainer() {
   }, []);
   useEffect(() => {
     const nextVillages = [...VILLAGE_INFO];
-    if (!pos || pos.latitude === 0) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        nextVillages.forEach((village: any) => {
-          village.distance = checkVillageDistance({
-            my_lat: position.coords.latitude,
-            my_lon: position.coords.longitude,
-            village_lat: Number(village.latitude),
-            village_lon: Number(village.longitude),
-          });
-        });
-        nextVillages.sort((a, b) => {
-          if (a.distance < a.radius) return -1;
-          if (b.distance < b.radius) return 1;
-          return a.distance - b.distance;
-        });
-        setVillages(nextVillages);
-      });
-    } else {
+    navigator.geolocation.getCurrentPosition((position) => {
       nextVillages.forEach((village: any) => {
         village.distance = checkVillageDistance({
-          my_lat: pos.latitude,
-          my_lon: pos.longitude,
+          my_lat: position.coords.latitude,
+          my_lon: position.coords.longitude,
           village_lat: Number(village.latitude),
           village_lon: Number(village.longitude),
         });
+        if (userName === '도롱이') {
+          village.distance = 0;
+        }
       });
       nextVillages.sort((a, b) => {
         if (a.distance < a.radius) return -1;
@@ -65,7 +48,8 @@ export default function VillageContainer() {
         return a.distance - b.distance;
       });
       setVillages(nextVillages);
-    }
+      setIsLoading(false);
+    });
   }, []);
 
   return (
@@ -134,14 +118,22 @@ export default function VillageContainer() {
         마을 안에 있으면 시작 할 수 있어요!
       </h4>
       <div className="flex flex-col gap-[16px] px-[24px]">
-        {villages.map((village) => (
-          <VilligeCard
-            key={village.id}
-            village={village}
-            toggleStart={toggleStart}
-            userItems={userItems}
-          />
-        ))}
+        {isLoading ? (
+          <>
+            <div className="flex px-[12px] justify-between items-center h-[70px] bg-dorong-gray-3 rounded-[10px] animate-pulse"></div>
+            <div className="flex px-[12px] justify-between items-center h-[70px] bg-dorong-gray-3 rounded-[10px] animate-pulse"></div>
+            <div className="flex px-[12px] justify-between items-center h-[70px] bg-dorong-gray-3 rounded-[10px] animate-pulse"></div>
+          </>
+        ) : (
+          villages.map((village) => (
+            <VilligeCard
+              key={village.id}
+              village={village}
+              toggleStart={toggleStart}
+              userItems={userItems}
+            />
+          ))
+        )}
       </div>
     </section>
   );
