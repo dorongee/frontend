@@ -30,6 +30,14 @@ export default function VillageContainer() {
   }, []);
   useEffect(() => {
     const nextVillages = [...VILLAGE_INFO];
+    if (userName === '') return;
+    if (userName === '도롱이') {
+      nextVillages.forEach((village: any) => (village.distance = 0));
+      setVillages(nextVillages);
+      setIsLoading(false);
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition((position) => {
       nextVillages.forEach((village: any) => {
         village.distance = checkVillageDistance({
@@ -38,9 +46,6 @@ export default function VillageContainer() {
           village_lat: Number(village.latitude),
           village_lon: Number(village.longitude),
         });
-        if (userName === '도롱이') {
-          village.distance = 0;
-        }
       });
       nextVillages.sort((a, b) => {
         if (a.distance < a.radius) return -1;
@@ -50,7 +55,7 @@ export default function VillageContainer() {
       setVillages(nextVillages);
       setIsLoading(false);
     });
-  }, []);
+  }, [userName]);
 
   return (
     <section className="relative flex flex-col w-full min-h-screen grow bg-dorong-white pb-[65px]">

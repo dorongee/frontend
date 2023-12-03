@@ -3,10 +3,7 @@
 import Image from 'next/image';
 import VillageDetailContainer from '../../../components/village/VillageDetailContainer';
 import arrowLeft from '/public/images/arrow-large-left.svg';
-import { getMissionsByVillageIdAndUserId } from '../../../service/village';
 import { useEffect, useState } from 'react';
-import { USER_ID_KEY } from '../../../constants';
-import { Mission } from '../../../types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Loading from '../../../components/village/Loading';
 

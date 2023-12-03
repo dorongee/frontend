@@ -47,12 +47,6 @@ export default function CreatePage() {
   };
 
   const handleClick = () => {
-    console.log(pos);
-    if (nickname === '도롱이') {
-      console.log('도롱이');
-      setPosition({ latitude: 33.5489326, longitude: 126.7557395 });
-    }
-
     setCurrentState('loading');
     setTimeout(() => {
       setCurrentState('complete');
