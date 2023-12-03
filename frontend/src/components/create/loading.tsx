@@ -12,7 +12,7 @@ export default function Loading() {
         </div>
       </div>
 
-      <div className="absolute flex flex-col justify-end w-full h-full pb-[109px] items-center">
+      <div className="absolute flex flex-col items-center justify-center w-full h-screen">
         <Image
           src="/images/main-map.png"
           alt="main-map"

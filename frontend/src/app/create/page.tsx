@@ -10,22 +10,9 @@ import {
 } from 'react';
 import folderImage from 'public/images/folder.svg';
 import Select from 'react-select';
-import {
-  AGE_OPTIONS,
-  CHEERING_IMG_KEY,
-  DESPAIR_IMG_KEY,
-  MAX_IMAGE_BYTE,
-  NORMAL_IMG_KEY,
-  USER_ID_KEY,
-} from '../../constants';
+import { AGE_OPTIONS, MAX_IMAGE_BYTE } from '../../constants';
 import Button from '../../components/Button';
 import { Gender, SelectType } from '../../types';
-import {
-  registerUserCheeringImage,
-  registerUserDespairImage,
-  registerUserNormalImage,
-  registerUserProfile,
-} from '../../service/user';
 import Loading from '../../components/create/loading';
 import Complete from '../../components/create/complete';
 import { notifyToast } from '../../service/notify';
@@ -39,7 +26,7 @@ export default function CreatePage() {
   const [buttonActive, setButtonActive] = useState(false);
   const [currentState, setCurrentState] = useState<
     'create' | 'loading' | 'complete'
-  >('create');
+  >('complete');
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -59,21 +46,9 @@ export default function CreatePage() {
 
   const handleClick = () => {
     setCurrentState('loading');
-    // registerUserProfile(nickname, age.value, gender)
-    //   .then((res) => res.user_data_id)
-    //   .then(async (userId) => {
-    //     sessionStorage.setItem(USER_ID_KEY, userId.toString());
-    //     const normal = await registerUserNormalImage(userId, imageFile);
-    //     // const cheering = await registerUserCheeringImage(userId, imageFile);
-    //     // const despair = await registerUserDespairImage(userId, imageFile);
-    //     // sessionStorage.setItem(CHEERING_IMG_KEY, cheering.url);
-    //     // sessionStorage.setItem(DESPAIR_IMG_KEY, despair.url);
-    //     sessionStorage.setItem(NORMAL_IMG_KEY, normal.url);
-    //     setCurrentState('complete');
-    //   });
     setTimeout(() => {
       setCurrentState('complete');
-    }, 2000);
+    }, 5000);
   };
 
   useEffect(() => {
