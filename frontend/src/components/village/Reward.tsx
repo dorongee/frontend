@@ -1,24 +1,23 @@
 import Image from 'next/image';
-import { VILLAGE_INFO } from '../../constants';
 
 interface Props {
-  villageId: number;
+  village: any;
 }
-export default function Reward({ villageId }: Props) {
+export default function Reward({ village }: Props) {
   return (
     <section className="flex flex-col w-full pt-[140px] items-center relative h-screen bg-[#fff]">
       <h1 className="text-dorong-gray-7 text-[24px] font-bold leading-[28.32px] mb-[2px]">
         '
         <strong className="text-dorong-black text-[24px] font-extrabold leading-[28.32px]">
-          {VILLAGE_INFO[villageId].name}
+          {village.name}
         </strong>
         ' 마을 생산품
       </h1>
       <span className=" text-[40px] font-extrabold leading-[48px] inline-block text-dorong-primary-dark mb-[16px]">
-        {VILLAGE_INFO[villageId].itemName}
+        {village.itemName}
       </span>
       <Image
-        src={`/images/item-${villageId + 1}.png`}
+        src={`/images/item-${village.id}.png`}
         alt="item"
         width={230}
         height={230}

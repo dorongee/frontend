@@ -2,15 +2,14 @@
 import Image from 'next/image';
 import Button from '../Button';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { VILLAGE_INFO } from '../../constants';
 import Link from 'next/link';
 import { getUserItems, setUserItems } from '../../app/util';
 
 interface Props {
   setStep: Dispatch<SetStateAction<number>>;
-  villageId: number;
+  village: any;
 }
-export default function Quiz({ setStep, villageId }: Props) {
+export default function Quiz({ setStep, village }: Props) {
   const [clickedType, setClickedType] = useState<'O' | 'X' | '-'>('-');
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -30,7 +29,7 @@ export default function Quiz({ setStep, villageId }: Props) {
       <div className="px-[24px] mb-[100px]">
         <div className="w-full border-dorong-primary-light border-[2px] rounded-xl">
           <p className="text-[20px] font-bold leading-[23.6px] text-dorong-black px-[36px] py-[23px] ">
-            {VILLAGE_INFO[villageId].quiz}
+            {village.quiz}
           </p>
         </div>
       </div>
@@ -57,13 +56,11 @@ export default function Quiz({ setStep, villageId }: Props) {
           <div className="w-screen h-screen opacity-50 bg-dorong-black"></div>
           <div className="absolute flex flex-col items-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-dorong-white w-[327px] h-[410px] py-8 px-5 rounded-xl">
             <p className="text-2xl font-bold text-dorong-primary-dark rounded-2xl">
-              {VILLAGE_INFO[villageId].answer === clickedType
-                ? '성공!'
-                : '다시 시도해볼까요?'}
+              {village.answer === clickedType ? '성공!' : '다시 시도해볼까요?'}
             </p>
             <Image
               src={
-                VILLAGE_INFO[villageId].answer === clickedType
+                village.answer === clickedType
                   ? '/images/cheering.png'
                   : '/images/in_despair.png'
               }
@@ -72,12 +69,12 @@ export default function Quiz({ setStep, villageId }: Props) {
               alt="example"
               className="my-[50px]"
             />
-            {VILLAGE_INFO[villageId].answer === clickedType ? (
+            {village.answer === clickedType ? (
               <button
                 className="flex justify-around w-full py-2 rounded-xl bg-dorong-primary-lightlight"
                 onClick={() => {
                   const itemList = getUserItems();
-                  setUserItems([...itemList, villageId]);
+                  setUserItems([...itemList, village.id]);
                   setStep(4);
                 }}
               >
