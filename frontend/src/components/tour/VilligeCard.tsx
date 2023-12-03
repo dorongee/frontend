@@ -5,14 +5,12 @@ import Link from 'next/link';
 interface VillageCardProps {
   village: Village;
   toggleStart: boolean;
-  userProfile: UserProfile;
+  userItems: number[];
 }
 
-function VilligeCard({ village, toggleStart, userProfile }: VillageCardProps) {
+function VilligeCard({ village, toggleStart, userItems }: VillageCardProps) {
   const isClosed = village?.distance <= Number(village.radius) * 5;
-  const villageType = userProfile?.completed_villages.includes(
-    village.village_id
-  )
+  const villageType = userItems.includes(village.village_id)
     ? 'complete'
     : isClosed
     ? 'start'

@@ -28,13 +28,13 @@ export async function getUserProfile(userId: number) {
     .then((res) => res.json())
     .catch(console.error);
 }
-export async function getUserItems(userId: number) {
-  return fetch(`${SERVER_ADDRESS}/data/user/${userId}/items`, {
-    method: 'GET',
-  })
-    .then((res) => res.json())
-    .catch(console.error);
-}
+// export async function getUserItems(userId: number) {
+//   return fetch(`${SERVER_ADDRESS}/data/user/${userId}/items`, {
+//     method: 'GET',
+//   })
+//     .then((res) => res.json())
+//     .catch(console.error);
+// }
 
 export async function registerUserNormalImage(
   userId: number,
@@ -79,4 +79,20 @@ export async function registerUserDespairImage(
   })
     .then((res) => res.json())
     .catch(console.error);
+}
+
+export function getUserName() {
+  return sessionStorage.getItem('userName' || '도롱이');
+}
+
+export function setUserName(userName: string) {
+  sessionStorage.setItem('userName', userName);
+}
+
+export function getUserItems() {
+  return JSON.parse(sessionStorage.getItem('userItems') || '[]');
+}
+
+export function setUserItems(userItems: string[]) {
+  sessionStorage.setItem('userItems', JSON.stringify(userItems));
 }

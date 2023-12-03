@@ -5,6 +5,7 @@ import Button from '../Button';
 import { useRouter } from 'next/navigation';
 import Processdots from './Processdots';
 import { useState } from 'react';
+import { setUserItems, setUserName } from '../../service/user';
 
 type Props = {
   nickname: string;
@@ -55,6 +56,8 @@ export default function Complete({ nickname }: Props) {
         <Button
           isAvailable={currentPage === 2}
           onClick={() => {
+            setUserItems([]);
+            setUserName(nickname);
             router.push('/village');
           }}
         >
