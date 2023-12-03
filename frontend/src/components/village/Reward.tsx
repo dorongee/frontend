@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { VILLAGE_INFO } from '../../constants';
 
 interface Props {
   village: any;

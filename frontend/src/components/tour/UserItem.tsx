@@ -20,7 +20,7 @@ function UserItemList({ item }: UserItemListProps) {
       </div>
       {item && (
         <label className="text-dorong-primary-dark text-[12px] font-medium leading-[14.16px]">
-          {VILLAGE_INFO[item].itemName}
+          {VILLAGE_INFO[item - 1].itemName}
         </label>
       )}
     </div>
