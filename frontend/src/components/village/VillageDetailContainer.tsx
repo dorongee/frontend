@@ -3,50 +3,34 @@
 import Image from 'next/image';
 import villageExample from '/public/images/village-detail-example.png';
 import Button from '../Button';
-import { useContext, useEffect, useId, useState } from 'react';
-import { Mission, Quiz, Village } from '../../types';
-import MissionItem from './MissionItem';
-import exampleImg from 'public/images/example.png';
+import { useContext, useEffect, useState } from 'react';
+import { Quiz } from '../../types';
 import { useRouter } from 'next/navigation';
-import {
-  createItem,
-  getQuiz,
-  getVillage,
-  registerQuiz,
-} from '../../service/village';
+import { createItem, registerQuiz } from '../../service/village';
 import { PositionContext } from '../../app/layout';
 import { checkVillageDistance } from '../../app/util';
-import {
-  CHEERING_IMG_KEY,
-  DESPAIR_IMG_KEY,
-  NORMAL_IMG_KEY,
-  USER_ID_KEY,
-} from '../../constants';
+import { USER_ID_KEY, VILLAGE_INFO } from '../../constants';
+import Mission from './Mission';
 
 type Props = {
-  missions: Mission[];
-  onClick: () => void;
   villageId: number;
 };
 
-export default function VillageDetailContainer({
-  missions,
-  onClick,
-  villageId,
-}: Props) {
-  const [step, setStep] = useState<number>(1);
+export default function VillageDetailContainer({ villageId }: Props) {
+  const [step, setStep] = useState<number>(2);
 
   const [clickedType, setClickedType] = useState<'O' | 'X' | '-'>('-');
   const OImgUrl = clickedType === 'O' ? '/images/O-blue.svg' : '/images/O.svg';
   const XImgUrl = clickedType === 'X' ? '/images/X-red.svg' : '/images/X.svg';
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [village, setVillage] = useState<Village>();
+
   const [quiz, setQuiz] = useState<Quiz>();
   const [isClosed, setIsClosed] = useState(false);
 
   const router = useRouter();
   const pos = useContext(PositionContext);
+  const village = VILLAGE_INFO[villageId];
 
   const handleSuccessClick = () => {
     setModalOpen(true);
@@ -56,11 +40,11 @@ export default function VillageDetailContainer({
 
   useEffect(() => {
     (async () => {
-      const res = await getVillage(villageId);
-      setVillage(res);
-      const userId = Number('1');
+      // const res = await getVillage(villageId);
+      // setVillage(res);
+      // const userId = Number('1');
       // const quiz = await getQuiz(villageId, userId);
-      setQuiz(quiz);
+      // setQuiz(quiz);
     })();
   }, []);
 
@@ -73,7 +57,6 @@ export default function VillageDetailContainer({
       village_lat: Number(village.latitude),
       village_lon: Number(village.longitude),
     });
-    console.log(distance <= Number(village.radius) * 5);
     setIsClosed(distance <= Number(village.radius) * 5);
   }, [village]);
 
@@ -84,34 +67,6 @@ export default function VillageDetailContainer({
       }, 2000);
     }
   }, [step]);
-
-  const dummy = [
-    {
-      user_mission_id: 1,
-      mission_details: 'string;',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 2,
-      mission_details: 'string;',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 3,
-      mission_details: 'string;',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 4,
-      mission_details: 'string;',
-      is_complete: false,
-    },
-    {
-      user_mission_id: 5,
-      mission_details: 'string;',
-      is_complete: false,
-    },
-  ];
 
   return (
     <section>
@@ -127,9 +82,8 @@ export default function VillageDetailContainer({
                 />
                 {!isClosed ? (
                   <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-8 px-8 py-1 left-1/2 w-[327px] bg-dorong-orange-light text-xs rounded-md border-2 border-dorong-orange-main">
-                    아직[{village?.village_name}]에 도착하지 않았습니다.
-                    {village?.village_name}에 도착하면 퀘스트를 수행할 수
-                    있어요.
+                    아직[{village?.name}]에 도착하지 않았습니다.
+                    {village?.name}에 도착하면 퀘스트를 수행할 수 있어요.
                   </div>
                 ) : (
                   <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
@@ -140,7 +94,7 @@ export default function VillageDetailContainer({
                 )}
               </div>
               <p className="mt-[52px] mx-5 text-sm text-dorong-gray-7">
-                {village?.village_description}
+                {village?.description}
               </p>
               <div className="absolute w-full h-[48px] px-6 bottom-12 text-dorong-white">
                 <Button isAvailable={isClosed} onClick={() => setStep(2)}>
@@ -149,39 +103,7 @@ export default function VillageDetailContainer({
               </div>
             </section>
           ),
-          2: (
-            <div className="flex flex-col items-center ">
-              <div className="flex gap-2 mt-2">
-                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
-              </div>
-              <p className="mt-3 text-xs text-dorong-gray-5">
-                5개 중 <span className="text-dorong-primary-main">3개</span>만
-                성공해도 미션 클리어!
-              </p>
-              <ul className="flex flex-col gap-4 mt-7">
-                {missions?.map((mission) => (
-                  <MissionItem
-                    mission={mission}
-                    key={mission.user_mission_id}
-                    onClick={onClick}
-                  />
-                ))}
-              </ul>
-              <div className="w-full h-[48px] px-6 mt-10 text-dorong-white">
-                <Button
-                  isAvailable={
-                    missions.filter((mission) => mission.is_complete).length >=
-                    3
-                  }
-                  onClick={() => setStep(3)}
-                >
-                  퀴즈로 이동
-                </Button>
-              </div>
-            </div>
-          ),
+          2: <Mission setStep={setStep} />,
           3: (
             <section className="flex flex-col items-center w-full ">
               <div className="flex gap-2 mt-2">
@@ -279,7 +201,7 @@ export default function VillageDetailContainer({
               <h1 className="text-dorong-gray-7 text-[24px] font-bold leading-[28.32px] mb-[2px]">
                 '
                 <strong className="text-dorong-black text-[24px] font-extrabold leading-[28.32px]">
-                  {village?.village_name}
+                  {village?.name}
                 </strong>
                 ' 마을 생산품
               </h1>

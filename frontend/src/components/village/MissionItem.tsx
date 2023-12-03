@@ -1,37 +1,28 @@
 'use client';
 
-import { Mission } from '../../types';
 import Image from 'next/image';
-import exampleImg from 'public/images/example.png';
-import { CHEERING_IMG_KEY, NORMAL_IMG_KEY } from '../../constants';
-import { completeMission } from '../../service/village';
-
 type Props = {
-  mission: Mission;
-  onClick: () => void;
+  mission: string;
+  isComplete: boolean;
+  completeMission: () => void;
 };
 
-export default function MissionItem({ mission, onClick }: Props) {
-  // const [isComplete, setIsComplete] = useState(mission.is_complete);
-
+export default function MissionItem({
+  mission,
+  isComplete,
+  completeMission,
+}: Props) {
   return (
     <li
-      className={`${
-        mission.is_complete ? 'pointer-events-none' : 'cursor-pointer'
-      } flex items-center bg-dorong-primary-lightlight w-[327px] h-[80px] rounded-lg gap-3 px-3`}
-      onClick={() =>
-        completeMission(mission.user_mission_id).then((res) => {
-          console.log(res);
-          onClick();
-        })
-      }
+      className={`flex items-center bg-dorong-primary-lightlight w-[327px] h-[80px] rounded-lg gap-3 px-3 cursor-pointer`}
+      onClick={completeMission}
     >
       <div className="flex items-center justify-center bg-dorong-gray-1 grow h-[56px] text-dorong-black">
-        <p>{mission.mission_details}</p>
+        <p>{mission}</p>
       </div>
-      {mission.is_complete ? (
+      {isComplete ? (
         <Image
-          src={'/images/avatar.png'}
+          src={'/images/profile.svg'}
           width={56}
           height={56}
           alt="cheeringImg"

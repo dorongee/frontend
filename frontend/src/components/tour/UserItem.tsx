@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { UserItem } from '../../types';
+import { VILLAGE_INFO } from '../../constants';
 
 interface UserItemListProps {
-  item?: UserItem;
+  item?: number;
 }
 function UserItemList({ item }: UserItemListProps) {
   return (
@@ -10,7 +10,7 @@ function UserItemList({ item }: UserItemListProps) {
       <div className="w-[60px] h-[60px] rounded-[4px] bg-[#FBF4FF]">
         {item && (
           <Image
-            src={item ? `/images/item-${item.item_id}.png` : ''}
+            src={item ? `/images/item-${item + 1}.png` : ''}
             alt="item"
             width={60}
             height={60}
@@ -20,7 +20,7 @@ function UserItemList({ item }: UserItemListProps) {
       </div>
       {item && (
         <label className="text-dorong-primary-dark text-[12px] font-medium leading-[14.16px]">
-          {item.item_name}
+          {VILLAGE_INFO[item].itemName}
         </label>
       )}
     </div>

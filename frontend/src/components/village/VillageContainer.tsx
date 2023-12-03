@@ -4,15 +4,13 @@ import Image from 'next/image';
 import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
 import { useContext, useEffect, useState } from 'react';
-import { getUserItems, getUserName, getUserProfile } from '../../service/user';
-import { UserItem, UserProfile, Village } from '../../types';
-import { getVillageAll } from '../../service/village';
+import { getUserItems, getUserName } from '../../service/user';
+import { Village } from '../../types';
 import { checkVillageDistance } from '../../app/util';
 import { PositionContext } from '../../app/layout';
-import { NORMAL_IMG_KEY, USER_ID_KEY } from '../../constants';
+import { VILLAGE_INFO } from '../../constants';
 
 export default function VillageContainer() {
-  const [hydrated, setHydrated] = useState(false);
   const [toggleStart, setToggleStart] = useState(false);
   const toggleImgUrl = toggleStart
     ? '/images/toggle-on.svg'
@@ -31,43 +29,40 @@ export default function VillageContainer() {
     setUserName(userName);
   }, []);
   useEffect(() => {
-    (async () => {
-      const res = await getVillageAll();
-      if (!res) return;
-      if (!pos || pos.latitude === 0) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          res.forEach((village: any) => {
-            village.distance = checkVillageDistance({
-              my_lat: position.coords.latitude,
-              my_lon: position.coords.longitude,
-              village_lat: Number(village.latitude),
-              village_lon: Number(village.longitude),
-            });
-          });
-          res.sort((a, b) => {
-            if (a.distance < a.radius * 5) return -1;
-            if (b.distance < b.radius * 5) return 1;
-            return a.distance - b.distance;
-          });
-          setVillages(res);
-        });
-      } else {
-        res.forEach((village: any) => {
+    const nextVillages = [...VILLAGE_INFO];
+    if (!pos || pos.latitude === 0) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        nextVillages.forEach((village: any) => {
           village.distance = checkVillageDistance({
-            my_lat: pos.latitude,
-            my_lon: pos.longitude,
+            my_lat: position.coords.latitude,
+            my_lon: position.coords.longitude,
             village_lat: Number(village.latitude),
             village_lon: Number(village.longitude),
           });
         });
-        res.sort((a, b) => {
-          if (a.distance < a.radius * 5) return -1;
-          if (b.distance < b.radius * 5) return 1;
+        nextVillages.sort((a, b) => {
+          if (a.distance < a.radius) return -1;
+          if (b.distance < b.radius) return 1;
           return a.distance - b.distance;
         });
-        setVillages(res);
-      }
-    })();
+        setVillages(nextVillages);
+      });
+    } else {
+      nextVillages.forEach((village: any) => {
+        village.distance = checkVillageDistance({
+          my_lat: pos.latitude,
+          my_lon: pos.longitude,
+          village_lat: Number(village.latitude),
+          village_lon: Number(village.longitude),
+        });
+      });
+      nextVillages.sort((a, b) => {
+        if (a.distance < a.radius) return -1;
+        if (b.distance < b.radius) return 1;
+        return a.distance - b.distance;
+      });
+      setVillages(nextVillages);
+    }
   }, []);
 
   return (
@@ -108,22 +103,9 @@ export default function VillageContainer() {
             <div className="flex gap-[8px] absolute top-[24px]">
               {Array.from({ length: 13 }, (_, index) => index).map((index) => {
                 if (userItems?.length > index) {
-                  return (
-                    <UserItemList
-                      key={userItems[index]}
-                      item={userItems[index]}
-                    />
-                  );
+                  return <UserItemList key={index} item={userItems[index]} />;
                 }
-                return (
-                  <UserItemList
-                    key={`${
-                      userItems
-                        ? userItems[index]?.item_name + '-' + index
-                        : index
-                    } `}
-                  />
-                );
+                return <UserItemList key={index} />;
               })}
             </div>
           </div>
@@ -151,7 +133,7 @@ export default function VillageContainer() {
       <div className="flex flex-col gap-[16px] px-[24px]">
         {villages.map((village) => (
           <VilligeCard
-            key={village.village_id}
+            key={village.id}
             village={village}
             toggleStart={toggleStart}
             userItems={userItems}

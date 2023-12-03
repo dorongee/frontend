@@ -82,7 +82,7 @@ export async function registerUserDespairImage(
 }
 
 export function getUserName() {
-  return sessionStorage.getItem('userName' || '도롱이');
+  return sessionStorage.getItem('userName' || '');
 }
 
 export function setUserName(userName: string) {

@@ -22,13 +22,16 @@ export interface UserItem {
 }
 
 export interface Village {
-  village_id: number;
-  village_name: string;
-  village_description: string;
-  latitude: string;
-  longitude: string;
-  radius: string;
+  name: string;
+  id: number;
+  description: string;
+  latitude: number;
+  longitude: number;
+  radius: number;
+  quiz: string;
+  answer: string;
   distance: number;
+  itemName: string;
 }
 
 export interface Position {

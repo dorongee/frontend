@@ -20,18 +20,12 @@ export default function VillageDetailPage({ params: { slug } }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const [missions, setMissions] = useState<Mission[]>([]);
   const [missionUpdate, setMissionUpdate] = useState<boolean>(false);
-  const villageId = Number(slug);
   const router = useRouter();
   const villageName = useSearchParams().get('name');
 
   useEffect(() => {
-    const userId = Number('1');
-
-    getMissionsByVillageIdAndUserId(villageId, userId).then((res) => {
-      setMissions(res);
-      setIsLoading(false);
-    });
-  }, [missionUpdate]);
+    setTimeout(() => setIsLoading(false), 3000);
+  }, []);
 
   return isLoading ? (
     <Loading villageName={villageName} />

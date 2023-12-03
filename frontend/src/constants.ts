@@ -111,7 +111,7 @@ export const MAX_IMAGE_BYTE = 5242880;
 
 export const SERVER_ADDRESS = '/api';
 
-export const ITEM_LIST = [
+export const VILLAGE_INFO = [
   {
     name: '하효리 마을',
     id: 0,
@@ -122,6 +122,8 @@ export const ITEM_LIST = [
     radius: 1.2,
     quiz: '하효마을에서는 쇠소깍 축제가 열린다.',
     answer: 'O',
+    distance: 0,
+    itemName: '쇠소깍',
   },
   {
     name: '한남리 마을',
@@ -133,6 +135,8 @@ export const ITEM_LIST = [
     radius: 2.5,
     quiz: '한남리마을에는 건물들이 많다.',
     answer: 'X',
+    distance: 0,
+    itemName: '고이오름',
   },
   {
     name: '신흥리 마을',
@@ -144,6 +148,8 @@ export const ITEM_LIST = [
     radius: 1.1,
     quiz: '신흥리마을은 동백으로 유명하다.',
     answer: 'O',
+    distance: 0,
+    itemName: '성게',
   },
   {
     name: '세화리 마을',
@@ -155,6 +161,8 @@ export const ITEM_LIST = [
     radius: 1.1,
     quiz: '세화리마을에서는 해녀 삼춘들을 만날 수 있다.',
     answer: 'O',
+    distance: 0,
+    itemName: '허브',
   },
   {
     name: '수산리 마을',
@@ -166,6 +174,8 @@ export const ITEM_LIST = [
     radius: 1.2,
     quiz: '수산리마을의 특산품은 망고이다.',
     answer: 'X',
+    distance: 0,
+    itemName: '초당옥수수',
   },
   {
     name: '의귀리 마을',
@@ -177,6 +187,8 @@ export const ITEM_LIST = [
     radius: 2.4,
     quiz: '의귀리마을에는 수선봉 그네가 있다.',
     answer: 'X',
+    distance: 0,
+    itemName: '말',
   },
   {
     name: '호근동 마을',
@@ -188,6 +200,8 @@ export const ITEM_LIST = [
     radius: 2.8,
     quiz: '호근동마을은 백록담과 가깝다.',
     answer: 'O',
+    distance: 0,
+    itemName: '감귤',
   },
   {
     name: '가시리 마을',
@@ -199,6 +213,8 @@ export const ITEM_LIST = [
     radius: 3.3,
     quiz: '가시리마을은 유채꽃으로 유명하다.',
     answer: 'O',
+    distance: 0,
+    itemName: '메밀',
   },
   {
     name: '신창리 마을',
@@ -210,6 +226,8 @@ export const ITEM_LIST = [
     radius: 0.7344,
     quiz: '신창에는 해안도로가 있다.',
     answer: 'O',
+    distance: 0,
+    itemName: '감귤',
   },
   {
     name: '교래삼다수 마을',
@@ -221,6 +239,8 @@ export const ITEM_LIST = [
     radius: 1.4,
     quiz: '교래삼다수마을에는 계곡이 없다.',
     answer: 'X',
+    distance: 0,
+    itemName: '수련',
   },
   {
     name: '김녕리 마을',
@@ -232,6 +252,8 @@ export const ITEM_LIST = [
     radius: 2.2,
     quiz: '김녕마을에는 해안가가 없다.',
     answer: 'X',
+    distance: 0,
+    itemName: '더덕',
   },
   {
     name: '무릉리 마을',
@@ -243,10 +265,12 @@ export const ITEM_LIST = [
     radius: 1.6,
     quiz: '무릉리마을은 농촌 마을이다.',
     answer: 'O',
+    distance: 0,
+    itemName: '등대',
   },
   {
     name: '저지리 마을',
-    id: 11,
+    id: 12,
     description:
       '저지리 마을은 제주 서쪽에 위치하며, 올레길 14-1 코스를 품고 있는 독특한 마을입니다. 이 마을은 봄, 여름, 가을, 겨울 각 계절마다 다른 매력을 선사하는 아름다운 곶자왈과 함께, 힐링을 위한 다양한 체험이 가능한 생각하는 정원, 그리고 예술인마을로 알려진 이색적인 공간까지 다양한 즐길거리를 제공합니다. 올레길을 따라 걷는 것이 제격인 이 마을은 독특한 자연환경과 예술적인 분위기가 어우러져 방문객들에게 특별한 경험을 선사하는 곳으로 알려져 있습니다.',
     latitude: 33.3272198,
@@ -254,5 +278,14 @@ export const ITEM_LIST = [
     radius: 1.5,
     quiz: '저지리마을의 특산품은 황토마늘이다.',
     answer: 'O',
+    distance: 0,
+    itemName: '감자',
   },
+];
+export const MISSION_LIST = [
+  '쇠소깍 축제 참여하기',
+  '고이오름 등반하기',
+  '동백나무 숲 산책하기',
+  '한라봉 향초 만들기',
+  '로컬 갈치조림 맛보기',
 ];
