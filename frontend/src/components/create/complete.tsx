@@ -5,7 +5,7 @@ import Button from '../Button';
 import { useRouter } from 'next/navigation';
 import Processdots from './Processdots';
 import { useState } from 'react';
-import { setUserItems, setUserName } from '../../service/user';
+import { setUserItems, setUserName } from '../../app/util';
 
 type Props = {
   nickname: string;
@@ -75,7 +75,6 @@ function TitleCompoenent({
   currentPage: number;
   nickname: string;
 }) {
-  console.log(currentPage);
   if (currentPage === 0)
     return (
       <div className="mt-[80px] text-[18px] font-bold leading-[21.6px] text-dorong-black">

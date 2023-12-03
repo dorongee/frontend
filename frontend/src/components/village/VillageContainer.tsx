@@ -4,9 +4,12 @@ import Image from 'next/image';
 import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
 import { useContext, useEffect, useState } from 'react';
-import { getUserItems, getUserName } from '../../service/user';
 import { Village } from '../../types';
-import { checkVillageDistance } from '../../app/util';
+import {
+  checkVillageDistance,
+  getUserItems,
+  getUserName,
+} from '../../app/util';
 import { PositionContext } from '../../app/layout';
 import { VILLAGE_INFO } from '../../constants';
 

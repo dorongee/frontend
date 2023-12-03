@@ -27,7 +27,6 @@ export default function Mission({ setStep }: MissionProps) {
             key={mission}
             isComplete={completeMission.includes(index)}
             completeMission={() => {
-              console.log(completeMission);
               if (!completeMission.includes(index)) {
                 setCompleteMission((prev) => [...prev, index]);
               } else {

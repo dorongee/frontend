@@ -26,7 +26,7 @@ export default function CreatePage() {
   const [buttonActive, setButtonActive] = useState(false);
   const [currentState, setCurrentState] = useState<
     'create' | 'loading' | 'complete'
-  >('complete');
+  >('create');
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -34,7 +34,6 @@ export default function CreatePage() {
     if (e.target.files !== null) {
       const file = e.target.files[0];
       if (file.size > MAX_IMAGE_BYTE) {
-        console.log('최대  이미지 사이즈 5MB를 초과하였습니다.');
         notifyToast('최대  이미지 사이즈 5MB를 초과하였습니다.', 'error');
         return;
       }

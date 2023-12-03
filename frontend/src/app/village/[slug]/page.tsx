@@ -18,8 +18,6 @@ type Props = {
 
 export default function VillageDetailPage({ params: { slug } }: Props) {
   const [isLoading, setIsLoading] = useState(true);
-  const [missions, setMissions] = useState<Mission[]>([]);
-  const [missionUpdate, setMissionUpdate] = useState<boolean>(false);
   const router = useRouter();
   const villageName = useSearchParams().get('name');
 
@@ -38,11 +36,7 @@ export default function VillageDetailPage({ params: { slug } }: Props) {
         <h2 className="text-lg font-bold">{villageName}</h2>
         <div className="w-[24px]"></div>
       </div>
-      <VillageDetailContainer
-        missions={missions}
-        onClick={() => setMissionUpdate((a) => !a)}
-        villageId={Number(slug)}
-      />
+      <VillageDetailContainer villageId={Number(slug)} />
     </section>
   );
 }

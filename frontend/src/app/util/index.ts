@@ -27,3 +27,19 @@ export function checkVillageDistance({
 function deg2rad(deg: number) {
   return deg * (Math.PI / 180);
 }
+
+export function getUserName() {
+  return sessionStorage.getItem('userName' || '');
+}
+
+export function setUserName(userName: string) {
+  sessionStorage.setItem('userName', userName);
+}
+
+export function getUserItems() {
+  return JSON.parse(sessionStorage.getItem('userItems') || '[]');
+}
+
+export function setUserItems(userItems: string[]) {
+  sessionStorage.setItem('userItems', JSON.stringify([...new Set(userItems)]));
+}
