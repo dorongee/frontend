@@ -19,9 +19,9 @@ export default function Quiz({ setStep, village }: Props) {
   return (
     <section className="flex flex-col items-center w-full ">
       <div className="flex gap-2 mt-2">
-        <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-        <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-        <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+        <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+        <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+        <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark bg-dorong-primary-dark"></div>
       </div>
       <p className="mt-[74px] text-[36px] font-extrabold leading-[43.2px] text-dorong-primary-light mb-[8px]">
         Q

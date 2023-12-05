@@ -20,11 +20,11 @@ function VilligeCard({ village, toggleStart, userItems }: VillageCardProps) {
     <div className="flex px-[12px] justify-between items-center h-[70px] bg-dorong-white rounded-[10px] shadow-[0_2px_10px_0px_rgba(0,0,0,0.07)]">
       <div className="flex gap-[16px]">
         <Image
-          src={`/images/village-${village.id}.png`}
+          src={`/images/village_${village.id}.jpeg`}
           alt={village.name}
-          width={85}
-          height={65}
-          className="w-[85px] h-[65px]"
+          width={60}
+          height={45}
+          className="w-[60px] h-[45px] rounded-lg"
         />
         <div className="flex flex-col items-start justify-center gap-1">
           <h1 className="text-[18px] font-bold leading-[12.6px] text-dorong-black">

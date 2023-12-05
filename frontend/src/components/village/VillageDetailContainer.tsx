@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import villageExample from '/public/images/village-detail-example.png';
 import Button from '../Button';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -52,7 +51,9 @@ export default function VillageDetailContainer({ villageId, userName }: Props) {
             <section>
               <div className="relative">
                 <Image
-                  src={villageExample}
+                  src={`/images/village_${villageId}.jpeg`}
+                  width={300}
+                  height={300}
                   alt="villageImg"
                   className="object-cover w-full shadow-bottom"
                 />
@@ -63,9 +64,9 @@ export default function VillageDetailContainer({ villageId, userName }: Props) {
                   </div>
                 ) : (
                   <div className="absolute flex gap-2 transform -translate-x-1/2 -translate-y-1/2 top-4 left-1/2">
-                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
-                    <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
+                    <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+                    <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark"></div>
+                    <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark"></div>
                   </div>
                 )}
               </div>

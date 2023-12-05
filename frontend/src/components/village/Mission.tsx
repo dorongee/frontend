@@ -12,9 +12,9 @@ export default function Mission({ setStep }: MissionProps) {
   return (
     <div className="flex flex-col items-center ">
       <div className="flex gap-2 mt-2">
-        <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-        <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark bg-dorong-primary-dark"></div>
-        <div className="w-4 h-4 border-2 rounded-full opacity-50 border-dorong-primary-dark"></div>
+        <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+        <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark bg-dorong-primary-dark"></div>
+        <div className="w-4 h-4 border-2 rounded-full opacity-90 border-dorong-primary-dark"></div>
       </div>
       <p className="mt-3 text-xs text-dorong-gray-5">
         5개 중 <span className="text-dorong-primary-main">3개</span>만 성공해도
