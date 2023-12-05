@@ -6,7 +6,7 @@ import arrowLeft from '/public/images/arrow-large-left.svg';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Loading from '../../../components/village/Loading';
-import { getUserName } from '../../util';
+import { getUserName } from '../../../util';
 
 type Props = {
   params: {

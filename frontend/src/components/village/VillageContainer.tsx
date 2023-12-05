@@ -5,11 +5,7 @@ import VilligeCard from '../../components/tour/VilligeCard';
 import UserItemList from '../../components/tour/UserItem';
 import { useEffect, useState } from 'react';
 import { Village } from '../../types';
-import {
-  checkVillageDistance,
-  getUserItems,
-  getUserName,
-} from '../../app/util';
+import { checkVillageDistance, getUserItems, getUserName } from '../../util';
 import { VILLAGE_INFO } from '../../constants';
 
 export default function VillageContainer() {

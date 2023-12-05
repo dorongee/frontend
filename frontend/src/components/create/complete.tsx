@@ -5,7 +5,7 @@ import Button from '../Button';
 import { useRouter } from 'next/navigation';
 import Processdots from './Processdots';
 import { useState } from 'react';
-import { setUserItems, setUserName } from '../../app/util';
+import { setUserItems, setUserName } from '../../util';
 
 type Props = {
   nickname: string;

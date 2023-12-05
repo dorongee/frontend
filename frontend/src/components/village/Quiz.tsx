@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Button from '../Button';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Link from 'next/link';
-import { getUserItems, setUserItems } from '../../app/util';
+import { getUserItems, setUserItems } from '../../util';
 
 interface Props {
   setStep: Dispatch<SetStateAction<number>>;

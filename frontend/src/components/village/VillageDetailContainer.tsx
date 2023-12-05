@@ -6,7 +6,7 @@ import Button from '../Button';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PositionContext } from '../../app/layout';
-import { checkVillageDistance } from '../../app/util';
+import { checkVillageDistance } from '../../util';
 import { VILLAGE_INFO } from '../../constants';
 import Mission from './Mission';
 import Quiz from './Quiz';
