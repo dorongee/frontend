@@ -24,7 +24,7 @@ function VilligeCard({ village, toggleStart, userItems }: VillageCardProps) {
           alt={village.name}
           width={85}
           height={65}
-          className="w-[85px]"
+          className="w-[85px] h-[65px]"
         />
         <div className="flex flex-col items-start justify-center gap-1">
           <h1 className="text-[18px] font-bold leading-[12.6px] text-dorong-black">
